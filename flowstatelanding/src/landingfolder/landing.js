@@ -93,8 +93,15 @@ function Landing() {
 
           </ul>
 
-          <button className="nav-btn" onClick={LoginNavigation}>
-            Log In
+          <button 
+          className="nav-btn"
+          data-tally-open="2EN49e"
+          data-tally-layout="modal"
+          data-tally-width="400"
+          data-tally-overlay="1"
+          
+          >
+            Join Waitlist
           </button>
         </nav>
       </div>
@@ -210,14 +217,12 @@ function Landing() {
           <div className="pricing-card">
             <p className="plan-name">Free</p>
             <h3 className="price">$0</h3>
-            <ul className="plan-features">
-              <li>✓ Limited interview sessions</li>
+            <ul style={{textAlign:"left"}}className="plan-features">
+              <li>✓ Limited Interview Questions</li>
               <li>✓ Resume upload</li>
-              <li>✓ Basic AI feedback</li>
+              <li>✓ Basic AI feedback and grade</li>
             </ul>
-            <button className="pricing-btn secondary" data-tally-open="2EN49e">
-              Join Waitlist
-            </button>
+         
           </div>
 
           <div className="pricing-card featured">
@@ -225,27 +230,23 @@ function Landing() {
             <h3 className="price">
               $15<span>/mo</span>
             </h3>
-            <ul className="plan-features">
+            <ul style={{textAlign:"left"}}className="plan-features">
               <li>✓ Unlimited practice</li>
               <li>✓ Resume-based probing</li>
-              <li>✓ Detailed feedback</li>
+              <li>✓ In Depth Detailed feedback and grade</li>
             </ul>
-            <button className="pricing-btn primary" data-tally-open="2EN49e">
-              Get Early Access
-            </button>
+          
           </div>
 
           <div className="pricing-card">
             <p className="plan-name">Lifetime</p>
             <h3 className="price">$30</h3>
-            <ul className="plan-features">
+            <ul style={{textAlign:"left"}}className="plan-features">
               <li>✓ Everything in Pro</li>
               <li>✓ Priority support</li>
               <li>✓ Future updates</li>
             </ul>
-            <button className="pricing-btn secondary" data-tally-open="2EN49e">
-              Contact Us
-            </button>
+           
           </div>
         </div>
       </section>
