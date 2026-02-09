@@ -93,14 +93,12 @@ function Landing() {
 
           </ul>
 
-          <button 
-          className="nav-btn"
-          data-tally-open="2EN49e"
+          <button className="nav-btn" 
+           data-tally-open="2EN49e"
           data-tally-layout="modal"
           data-tally-width="400"
           data-tally-overlay="1"
-          
-          >
+          onClick={LoginNavigation}>
             Join Waitlist
           </button>
         </nav>
