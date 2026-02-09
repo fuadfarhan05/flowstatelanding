@@ -6,14 +6,8 @@ import SessionImg from "../images/sessions.png";
 import grade from "../images/grade.png";
 import logo from "../images/flowstatelogo.png";
 
-import { useNavigate } from "react-router-dom";
 
 function Landing() {
-  const navigate = useNavigate();
-
-  function LoginNavigation() {
-    navigate("/LoginPage");
-  }
 
   // Load Tally script once
   useEffect(() => {
@@ -98,7 +92,7 @@ function Landing() {
           data-tally-layout="modal"
           data-tally-width="400"
           data-tally-overlay="1"
-          onClick={LoginNavigation}>
+         >
             Join Waitlist
           </button>
         </nav>
