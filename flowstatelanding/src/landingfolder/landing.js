@@ -214,6 +214,7 @@ function Landing() {
               <li>✓ Unlimited practice</li>
               <li>✓ Resume context based interviews</li>
               <li>✓ In Depth Detailed feedback analysis and grades</li>
+              <li>✓ All future features included</li>
             </ul>
           
           </div>
@@ -222,9 +223,10 @@ function Landing() {
             <p className="plan-name">Lifetime</p>
             <h3 className="price">$15</h3>
             <ul style={{textAlign:"left"}}className="plan-features">
-              <li>✓ All pro features, FOREVER</li>
+              <li>✓ All pro/future features, FOREVER</li>
               <li>✓ Resume context based interviews</li>
               <li>✓ In Depth Detailed feedback analysis and grades</li>
+              <li>✓ All future features included</li>
             </ul>
            
         </div>
