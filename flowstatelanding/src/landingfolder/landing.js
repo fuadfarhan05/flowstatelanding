@@ -99,23 +99,23 @@ function Landing() {
       </div>
 
       {/* HERO */}
-      <p style={{ color: "#7f9bff", fontSize: "20px", marginTop: "150px" }}>
+      <p className="hero-eyebrow">
         Enter Your
       </p>
 
       <div className="title">
-        <div style={{ display: "flex" }}>
-          <h1 style={{ marginTop: "30px", color: "white", fontSize: "60px" }}>
+        <div className="hero-brand">
+          <h1 className="hero-title">
             FlowState
           </h1>
           <img
-            style={{ marginTop: "15px", width: "100px", height: "100px" }}
+            className="hero-logo"
             src={logo}
             alt="flowstate-logo"
           />
         </div>
 
-        <p style={{ color: "#c0c0c0", fontSize: "30px" }}>
+        <p className="hero-tagline">
           The Proper Training You Need Before The Interview
         </p>
       </div>
@@ -161,7 +161,7 @@ function Landing() {
 
         <div className="grade-right">
           <img
-            style={{ width: "500px" }}
+            className="grade-img"
             src={grade}
             alt="FlowState grading"
           />
@@ -172,7 +172,7 @@ function Landing() {
       <div className="feature-grid" id="features">
         <div className="feature-card">
           <img
-            style={{ width: "550px", marginRight: "-10px" }}
+            className="feature-img feature-img-upload"
             src={UploadImg}
             alt="Resume upload"
           />
@@ -186,7 +186,7 @@ function Landing() {
 
         <div className="feature-card">
           <img
-            style={{ width: "640px", marginLeft: "-70px" }}
+            className="feature-img feature-img-session"
             src={SessionImg}
             alt="Practice sessions"
           />

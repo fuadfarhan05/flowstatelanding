@@ -153,6 +153,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-sizing: border-box;
 
   background:
     radial-gradient(
@@ -245,6 +246,10 @@
 
 .buttons-place {
   margin-bottom: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .feature-grid {
@@ -257,10 +262,12 @@
   gap: 10px;
   margin: 0 auto;
   width: 500px;
+  max-width: 100%;
   height: 600px;
   position: relative;
   padding: 56px;
   border-radius: 32px;
+  box-sizing: border-box;
   background:
     radial-gradient(
       120% 120% at 100% 0%,
@@ -446,6 +453,56 @@
   color: #aab0c0;
 }
 
+/* Hero classes (replacing inline styles) */
+.hero-eyebrow {
+  color: #7f9bff;
+  font-size: 20px;
+  margin-top: 150px;
+  text-align: center;
+}
+
+.hero-brand {
+  display: flex;
+  align-items: center;
+}
+
+.hero-title {
+  margin-top: 30px;
+  color: white;
+  font-size: 60px;
+}
+
+.hero-logo {
+  margin-top: 15px;
+  width: 100px;
+  height: 100px;
+}
+
+.hero-tagline {
+  color: #c0c0c0;
+  font-size: 30px;
+}
+
+/* Image classes (replacing inline styles) */
+.grade-img {
+  width: 100%;
+  max-width: 500px;
+}
+
+.feature-img {
+  width: 100%;
+  max-width: 550px;
+}
+
+.feature-img-upload {
+  margin-right: -10px;
+}
+
+.feature-img-session {
+  max-width: 640px;
+  margin-left: -70px;
+}
+
 /* Grid */
 .testimonial-grid {
   display: grid;
@@ -493,6 +550,7 @@
     linear-gradient(90deg, rgba(59, 130, 246, 0.15) 1px, transparent 1px);
 
   background-size: 40px 40px;
+  overflow-x: hidden;
 }
 
 .pricing-section {
@@ -636,7 +694,106 @@
 }
 
 /* ========================= */
-/* 📱 MOBILE FIXES */
+/* TABLET (769px – 1024px)   */
+/* ========================= */
+
+@media (max-width: 1024px) {
+
+  /* Hero */
+  .hero-eyebrow {
+    margin-top: 100px;
+  }
+
+  .hero-title {
+    font-size: 48px;
+  }
+
+  .hero-tagline {
+    font-size: 24px;
+  }
+
+  .hero-logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  /* Grade card */
+  .grade-card {
+    flex-direction: column;
+    height: auto;
+    padding: 48px 32px;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .grade-left {
+    max-width: 100%;
+  }
+
+  .grade-left h1 {
+    font-size: 38px;
+  }
+
+  .grade-right {
+    justify-content: center;
+  }
+
+  /* Feature grid */
+  .feature-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .feature-card {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    padding: 40px 32px;
+    margin: 0 auto;
+  }
+
+  .feature-card h2 {
+    white-space: normal;
+  }
+
+  .feature-img-session {
+    margin-left: 0;
+  }
+
+  .feature-img-upload {
+    margin-right: 0;
+  }
+
+  /* Reduce spacing */
+  .buttons-place {
+    margin-bottom: 100px;
+  }
+
+  .faq-section {
+    margin-top: 80px;
+  }
+
+  /* Pricing */
+  .pricing-section {
+    padding: 80px 40px;
+  }
+
+  .pricing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Testimonials */
+  .testimonials {
+    padding: 80px 24px;
+  }
+
+  .testimonial-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ========================= */
+/* MOBILE (max-width: 768px) */
 /* ========================= */
 
 @media (max-width: 768px) {
@@ -645,7 +802,7 @@
   section,
   .pricing-section,
   .testimonials {
-    padding: 80px 20px;
+    padding: 60px 20px;
   }
 
   /* Navbar */
@@ -664,22 +821,72 @@
     font-size: 14px;
   }
 
-  /* Hero / Title */
-  .brand h1 {
-    font-size: 34px;
+  /* Hero */
+  .hero-eyebrow {
+    margin-top: 80px;
+    font-size: 16px;
+    text-align: center;
   }
 
-  .tagline {
-    font-size: 18px;
+  .title {
+    align-items: center;
+    text-align: center;
+    padding: 0 16px;
+  }
+
+  .hero-brand {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-title {
+    font-size: 36px;
+    margin-top: 16px;
+    text-align: center;
+  }
+
+  .hero-tagline {
+    font-size: 20px;
     max-width: 90%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-logo {
+    width: 60px;
+    height: 60px;
+    margin-top: 8px;
+  }
+
+  /* Buttons */
+  .buttons-place {
+    margin-bottom: 60px;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .get-started,
+  .learn-more-btn {
+    width: 100%;
+    max-width: 280px;
+    margin: 0;
   }
 
   /* Grade card */
   .grade-card {
+    width: calc(100% - 32px);
     flex-direction: column;
     height: auto;
     padding: 32px 24px;
     gap: 32px;
+    text-align: center;
+  }
+
+  .grade-left {
+    max-width: 100%;
+    text-align: center;
   }
 
   .grade-left h1 {
@@ -688,38 +895,62 @@
 
   .grade-right {
     width: 100%;
+    justify-content: center;
+  }
+
+  .grade-img {
+    max-width: 100%;
   }
 
   .stat-card {
     width: 100%;
   }
 
-  /* Buttons */
-  .get-started,
-  .learn-more-btn {
-    width: 100%;
-    max-width: 320px;
-  }
-
   /* Feature grid */
   .feature-grid {
     grid-template-columns: 1fr;
     gap: 40px;
+    padding: 0 16px;
   }
 
   .feature-card {
     width: 100%;
+    max-width: 100%;
     height: auto;
     padding: 36px 24px;
+    text-align: center;
+    box-sizing: border-box;
   }
 
   .feature-card h2 {
-    white-space: normal; /* allow wrapping */
+    white-space: normal;
     font-size: 22px;
+    text-align: center;
+  }
+
+  .section-label {
+    text-align: center;
   }
 
   .description {
     font-size: 15px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .feature-img {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto 20px auto;
+  }
+
+  .feature-img-session {
+    margin-left: 0;
+  }
+
+  .feature-img-upload {
+    margin-right: 0;
   }
 
   /* Floating widgets */
@@ -736,6 +967,7 @@
   .testimonial-grid {
     grid-template-columns: 1fr;
     gap: 24px;
+    padding: 0 8px;
   }
 
   .testimonial-card {
@@ -745,6 +977,12 @@
   /* Pricing */
   .pricing-grid {
     grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .pricing-card {
+    text-align: center;
   }
 
   .pricing-title {
@@ -756,11 +994,98 @@
   }
 
   /* FAQ */
+  .faq-section {
+    margin-top: 60px;
+    padding: 0 16px;
+  }
+
   .faq-title {
     font-size: 32px;
   }
 
+  .faq-grid {
+    max-width: 100%;
+  }
+
   .faq-item summary {
     font-size: 16px;
+  }
+}
+
+/* ========================= */
+/* SMALL MOBILE (max-width: 480px) */
+/* ========================= */
+
+@media (max-width: 480px) {
+
+  .hero-eyebrow {
+    margin-top: 60px;
+    font-size: 14px;
+  }
+
+  .hero-title {
+    font-size: 28px;
+    margin-top: 10px;
+  }
+
+  .hero-tagline {
+    font-size: 16px;
+    max-width: 100%;
+    padding: 0 8px;
+  }
+
+  .hero-logo {
+    width: 45px;
+    height: 45px;
+  }
+
+  .grade-card {
+    padding: 24px 16px;
+    width: calc(100% - 24px);
+  }
+
+  .grade-left h1 {
+    font-size: 26px;
+  }
+
+  .feature-grid {
+    padding: 0 8px;
+  }
+
+  .feature-card {
+    padding: 28px 16px;
+  }
+
+  .pricing-section {
+    padding: 60px 12px;
+  }
+
+  .pricing-grid {
+    max-width: 100%;
+  }
+
+  .price {
+    font-size: 34px;
+  }
+
+  .faq-title {
+    font-size: 26px;
+  }
+
+  .faq-section {
+    padding: 0 8px;
+  }
+
+  .testimonials {
+    padding: 60px 12px;
+  }
+
+  .testimonial-grid {
+    padding: 0;
+  }
+
+  .get-started,
+  .learn-more-btn {
+    max-width: 260px;
   }
 }
