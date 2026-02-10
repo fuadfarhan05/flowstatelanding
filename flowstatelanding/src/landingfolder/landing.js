@@ -205,41 +205,28 @@ function Landing() {
           Start free. Upgrade only when you’re ready to go all in.
         </p>
 
-        <div className="pricing-grid">
-          <div className="pricing-card">
-            <p className="plan-name">Free</p>
-            <h3 className="price">$0</h3>
-            <ul style={{textAlign:"left"}}className="plan-features">
-              <li>✓ Limited Interview Questions</li>
-              <li>✓ Resume upload</li>
-              <li>✓ Basic AI feedback and grade</li>
-            </ul>
-         
-          </div>
-
           <div className="pricing-card featured">
             <p className="plan-name">Pro</p>
             <h3 className="price">
-              $15<span>/mo</span>
+              $10<span>/mo</span>
             </h3>
             <ul style={{textAlign:"left"}}className="plan-features">
               <li>✓ Unlimited practice</li>
-              <li>✓ Resume-based probing</li>
-              <li>✓ In Depth Detailed feedback and grade</li>
+              <li>✓ Resume context based interviews</li>
+              <li>✓ In Depth Detailed feedback analysis and grades</li>
             </ul>
           
           </div>
 
           <div className="pricing-card">
             <p className="plan-name">Lifetime</p>
-            <h3 className="price">$30</h3>
+            <h3 className="price">$15</h3>
             <ul style={{textAlign:"left"}}className="plan-features">
-              <li>✓ Everything in Pro</li>
-              <li>✓ Priority support</li>
-              <li>✓ Future updates</li>
+              <li>✓ All pro features, FOREVER</li>
+              <li>✓ Resume context based interviews</li>
+              <li>✓ In Depth Detailed feedback analysis and grades</li>
             </ul>
            
-          </div>
         </div>
       </section>
 
@@ -253,18 +240,14 @@ function Landing() {
     <details className="faq-item">
       <summary>What is FlowState?</summary>
       <p>
-        FlowState is an AI-powered interview training platform that helps you
-        practice speaking confidently, get real-time feedback, and improve how
-        you communicate your experiences.
+        FlowState is a web application that helps people who struggle with their speech be able to speak confidently for their interviews.
       </p>
     </details>
 
     <details className="faq-item">
       <summary>Is FlowState free to use?</summary>
       <p>
-        Yes! You can start for free with limited interview sessions. When you’re
-        ready, you can upgrade to unlock unlimited practice and advanced
-        feedback.
+        Unfortunately, since with a small team and limited resources FlowState is a paid service. Your support for FlowState contributes to FlowState's services improving overtime. 
       </p>
     </details>
 
@@ -272,23 +255,15 @@ function Landing() {
       <summary>What kind of interviews does FlowState help with?</summary>
       <p>
         FlowState focuses on behavioral and experience-based interviews, helping
-        you clearly explain your resume, projects, and past roles.
+        you clearly explain experiences on your resume.
       </p>
     </details>
 
     <details className="faq-item">
       <summary>Do I need an interviewer or partner?</summary>
       <p>
-        Nope. FlowState acts as your interviewer and coach, so you can practice
+        Nope. FlowState acts as your interviewer, so you can practice
         anytime without needing another person.
-      </p>
-    </details>
-
-    <details className="faq-item">
-      <summary>When will FlowState be fully available?</summary>
-      <p>
-        We’re currently onboarding early users through our waitlist. Join now
-        to get early access and help shape the product.
       </p>
     </details>
   </div>
@@ -314,14 +289,6 @@ function Landing() {
               We knew there had to be a better way to prepare for interviews.
               <br />
               <br />– Rayat <strong>(Co-Founder)</strong>
-            </p>
-          </div>
-
-          <div className="testimonial-card">
-            <p>
-              The scripts and feedback actually work in real interviews.
-              <br />
-              <br />– Kyle <strong>(Engineer)</strong>
             </p>
           </div>
         </div>
