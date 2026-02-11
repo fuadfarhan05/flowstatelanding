@@ -112,6 +112,7 @@ function Landing() {
           </h1>
           <img
             className="hero-logo"
+            style={{marginBottom: '20px'}}
             src={logo}
             alt="flowstate-logo"
           />
