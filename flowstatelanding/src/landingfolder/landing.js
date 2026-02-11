@@ -204,7 +204,7 @@ function Landing() {
       <section className="pricing-section" id="pricing">
         <p className="eyebrow">PRICING (COMING SOON...)</p>
         <p className="pricing-subtitle">
-          Here's a look at what you'll would be paying for
+          Here's a look at what you would be paying for
         </p>
 
           <div className="pricing-card featured">
