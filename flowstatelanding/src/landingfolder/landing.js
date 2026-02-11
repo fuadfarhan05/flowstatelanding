@@ -281,7 +281,8 @@ function Landing() {
 
           <div className="testimonial-card">
             <p>
-              We knew there had to be a better way to prepare for interviews.
+              It's unbelievable to see FlowState, which started out as a small project idea turn into something that feels real. Every sprint and every interation gave us hope that we 
+              have been able to find the solution for the problem we aimed to solve. 
               <br />
               <br />– Rayat <strong>(Co-Founder)</strong>
             </p>
