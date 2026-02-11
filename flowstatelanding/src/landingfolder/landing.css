@@ -147,6 +147,7 @@
 }
 
 .grade-card {
+  padding: 50px;
   width: 85%;
   height: 300px;
   margin: 0 auto;
@@ -579,12 +580,18 @@
 .pricing-card {
   background: rgba(16, 20, 47, 0.85);
   border-radius: 20px;
-  padding: 40px 30px;
+
+  padding: 28px 22px;   /* ↓ smaller padding */
+  max-width: 350px;     /* ↓ control card width */
+  margin: 0 auto;       /* center it */
+
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
+
   transition: transform 0.2s ease;
 }
+
 
 .pricing-card:hover {
   transform: translateY(-6px);
@@ -775,6 +782,7 @@
 
   /* Pricing */
   .pricing-section {
+    width: 400px;
     padding: 80px 40px;
   }
 

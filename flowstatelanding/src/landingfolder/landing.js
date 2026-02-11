@@ -39,6 +39,23 @@ function Landing() {
           </div>
 
           <ul className="nav-links">
+             <li>Our Mission</li>
+
+
+            <li>
+              <a
+                href="#tally-open=2EN49e&tally-layout=modal&tally-width=400&tally-overlay=1"
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  cursor: "pointer",
+                }}
+              >
+                Support Us
+              </a>
+            </li>
+
+
 
             <li>
               <a
@@ -52,21 +69,6 @@ function Landing() {
                 Pricing
               </a>
             </li>
-
-            <li>
-              <a
-                href="#tally-open=2EN49e&tally-layout=modal&tally-width=400&tally-overlay=1"
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  cursor: "pointer",
-                }}
-              >
-                Join Our Waitlist
-              </a>
-            </li>
-
-            <li>Our Mission</li>
 
             <li>
               <a
@@ -200,36 +202,25 @@ function Landing() {
 
       {/* PRICING */}
       <section className="pricing-section" id="pricing">
-        <p className="eyebrow">PRICING</p>
+        <p className="eyebrow">PRICING (COMING SOON...)</p>
         <p className="pricing-subtitle">
-          Start free. Upgrade only when you’re ready to go all in.
+          Pay for services you want and need. The rest is on us!
         </p>
 
           <div className="pricing-card featured">
             <p className="plan-name">Pro</p>
             <h3 className="price">
-              $10<span>/mo</span>
+              TBD<span>/mo</span>
             </h3>
             <ul style={{textAlign:"left"}}className="plan-features">
               <li>✓ Unlimited practice</li>
               <li>✓ Resume context based interviews</li>
-              <li>✓ In Depth Detailed feedback analysis and grades</li>
+              <li>✓ Detailed feedback, analysis, and grades</li>
               <li>✓ All future features included</li>
             </ul>
           
           </div>
 
-          <div className="pricing-card">
-            <p className="plan-name">Lifetime</p>
-            <h3 className="price">$15</h3>
-            <ul style={{textAlign:"left"}}className="plan-features">
-              <li>✓ All pro/future features, FOREVER</li>
-              <li>✓ Resume context based interviews</li>
-              <li>✓ In Depth Detailed feedback analysis and grades</li>
-              <li>✓ All future features included</li>
-            </ul>
-           
-        </div>
       </section>
 
 
@@ -242,22 +233,22 @@ function Landing() {
     <details className="faq-item">
       <summary>What is FlowState?</summary>
       <p>
-        FlowState is a web application that helps people who struggle with their speech be able to speak confidently for their interviews.
+        FlowState is a web application that helps people who struggle with their speech be able to speak confidently during their interviews.
       </p>
     </details>
 
     <details className="faq-item">
       <summary>Is FlowState free to use?</summary>
       <p>
-        Unfortunately, since with a small team and limited resources FlowState is a paid service. Your support for FlowState contributes to FlowState's services improving overtime. 
+        FlowState is not free to use, since with a small team and limited resources, FlowState is a paid service. Your support for FlowState contributes to FlowState's services improving overtime. 
       </p>
     </details>
 
     <details className="faq-item">
       <summary>What kind of interviews does FlowState help with?</summary>
       <p>
-        FlowState focuses on behavioral and experience-based interviews, helping
-        you clearly explain experiences on your resume.
+        FlowState focuses on behavioral and experience-based interviews, giving you enough practice and helping
+        you speak confidently and clearly explain experiences on your resume.
       </p>
     </details>
 
@@ -279,8 +270,10 @@ function Landing() {
         <div className="testimonial-grid">
           <div className="testimonial-card">
             <p>
-              FlowState was born from the struggle of learning how to speak
-              confidently.
+              I would always struggle with my interviews until I realized that I wasn't preparing the right way. 
+              No matter how "prepared" I felt there were moments in real interviews where I would get startled by a question I wasn't expecting.
+              The best performance comes from consistent and challenging practice but it's not easy to challenge yourself when preparing alone. With 
+              FlowState, we solved this EXACT issue.
               <br />
               <br />– Fuad <strong>(Founder)</strong>
             </p>
