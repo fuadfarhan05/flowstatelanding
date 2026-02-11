@@ -245,6 +245,13 @@ function Landing() {
     </details>
 
     <details className="faq-item">
+      <summary>What does joining the waitlist do?</summary>
+      <p>
+        Joining the waitlist shows your support for FlowState and allows us to be able to contact you to inform you about new updates. Joining the waitlist also allows us to see who's interested and gives us a chance to reach out and learn what will make FlowState the best fit for you and all of our users!
+      </p>
+    </details>
+
+    <details className="faq-item">
       <summary>What kind of interviews does FlowState help with?</summary>
       <p>
         FlowState focuses on behavioral and experience-based interviews, giving you enough practice and helping
