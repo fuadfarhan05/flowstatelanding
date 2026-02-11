@@ -281,8 +281,12 @@ function Landing() {
 
           <div className="testimonial-card">
             <p>
-              It's unbelievable to see FlowState, which started out as a small project idea turn into something that feels real. Every sprint and every interation gave us hope that we 
-              have been able to find the solution for the problem we aimed to solve. 
+              FlowState was never just a project for Fuad and I, it was
+              personal. We both experienced how unpredictable the job market can
+              be, where even landing an internship feels uncertain. We’d quiz
+              each other, run mock interviews, and review resumes, but it never
+              matched the pressure of the real thing. We knew there had to be a
+              better way. That’s why we built FlowState.
               <br />
               <br />– Rayat <strong>(Co-Founder)</strong>
             </p>
