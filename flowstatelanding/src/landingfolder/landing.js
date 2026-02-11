@@ -39,7 +39,6 @@ function Landing() {
           </div>
 
           <ul className="nav-links">
-             <li>Our Mission</li>
 
 
             <li>
