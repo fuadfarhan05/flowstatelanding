@@ -240,7 +240,7 @@ function Landing() {
     <details className="faq-item">
       <summary>Is FlowState free to use?</summary>
       <p>
-        FlowState is not free to use, since with a small team and limited resources, FlowState is a paid service. Your support for FlowState contributes to FlowState's services improving overtime. 
+        FlowState is not free to use. Since with a small team and limited resources, FlowState will move forward as a paid service. We appreciate your support! Your support for FlowState contributes to FlowState's services improving overtime! 
       </p>
     </details>
 
