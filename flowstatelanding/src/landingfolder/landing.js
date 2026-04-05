@@ -25,8 +25,29 @@ function Landing() {
     document.head.appendChild(script);
   }, []);
 
+  // Scroll-triggered fade-in
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="background">
+      {/* AMBIENT GLOW ORBS */}
+      <div className="glow-orb glow-orb-1" />
+      <div className="glow-orb glow-orb-2" />
+      <div className="glow-orb glow-orb-3" />
+
       {/* NAVBAR */}
       <div className="navbar">
         <nav className="glass-navbar">
@@ -147,7 +168,7 @@ function Landing() {
       </div>
 
       {/* GRADE SECTION */}
-      <div className="grade-card">
+      <div className="grade-card fade-in">
         <div className="grade-left">
           <p className="badge">CLEAR PROGRESSION</p>
           <h1>
@@ -172,7 +193,7 @@ function Landing() {
 
       {/* FEATURES */}
       <div className="feature-grid" id="features">
-        <div className="feature-card">
+        <div className="feature-card fade-in">
           <img
             className="feature-img feature-img-upload"
             src={UploadImg}
@@ -186,7 +207,7 @@ function Landing() {
           </p>
         </div>
 
-        <div className="feature-card">
+        <div className="feature-card fade-in">
           <img
             className="feature-img feature-img-session"
             src={SessionImg}
@@ -201,7 +222,7 @@ function Landing() {
       </div>
 
       {/* PRICING */}
-      <section className="pricing-section" id="pricing">
+      <section className="pricing-section fade-in" id="pricing">
         <p className="eyebrow">PRICING (COMING SOON...)</p>
         <p className="pricing-subtitle">
           Here's a look at what you would be paying for
@@ -225,7 +246,7 @@ function Landing() {
 
 
       {/* FAQ */}
-<section className="faq-section" id="faq">
+<section className="faq-section fade-in" id="faq">
   <p className="eyebrow">FAQ</p>
   <h2 className="faq-title">Frequently Asked Questions</h2>
 
@@ -271,7 +292,7 @@ function Landing() {
 
 
       {/* TESTIMONIALS */}
-      <section className="testimonials">
+      <section className="testimonials fade-in">
         <p className="eyebrow">TESTIMONIALS</p>
 
         <div className="testimonial-grid">
@@ -300,6 +321,30 @@ function Landing() {
           </div>
         </div>
       </section>
+
+      {/* FOOTER */}
+      <footer className="footer">
+        <div className="footer-brand">
+          <img src={logo} alt="flowstate-logo" />
+          <span>FlowState</span>
+        </div>
+        <ul className="footer-links">
+          <li>
+            <a href="#pricing">Pricing</a>
+          </li>
+          <li>
+            <a href="#faq">FAQ</a>
+          </li>
+          <li>
+            <a
+              href="#tally-open=2EN49e&tally-layout=modal&tally-width=400&tally-overlay=1"
+            >
+              Join Waitlist
+            </a>
+          </li>
+        </ul>
+        <p className="footer-copy">© {new Date().getFullYear()} FlowState. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
