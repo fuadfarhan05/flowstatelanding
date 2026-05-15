@@ -4,7 +4,6 @@ import "./landing.css";
 import UploadImg from "../images/interviewfromresume.webp";
 import FillerWordsImg from "../images/fillerwords.webp";
 import StarMethodImg from "../images/starmethod.webp";
-import SessionImg from "../images/sessions.png";
 import grade from "../images/grade.png";
 import logo from "../images/flowstatelogo.png";
 
