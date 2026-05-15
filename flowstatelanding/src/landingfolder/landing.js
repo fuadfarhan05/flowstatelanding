@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./landing.css";
 
-import UploadImg from "../images/flowstateuploadimg.png";
+import UploadImg from "../images/interviewfromresume.webp";
+import FillerWordsImg from "../images/fillerwords.webp";
+import StarMethodImg from "../images/starmethod.webp";
 import SessionImg from "../images/sessions.png";
 import grade from "../images/grade.png";
 import logo from "../images/flowstatelogo.png";
@@ -39,6 +41,147 @@ function Landing() {
     );
     document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
     return () => observer.disconnect();
+  }, []);
+
+  // Staggered child reveals for grid sections
+  useEffect(() => {
+    const grids = document.querySelectorAll(
+      ".testimonial-grid, .speech-grid, .pricing-grid"
+    );
+
+    grids.forEach((grid) => {
+      Array.from(grid.children).forEach((child) => {
+        child.classList.add("stagger-child");
+      });
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const children = Array.from(entry.target.children);
+            children.forEach((child, i) => {
+              setTimeout(() => child.classList.add("visible"), i * 130);
+            });
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    grids.forEach((grid) => observer.observe(grid));
+    return () => observer.disconnect();
+  }, []);
+
+  // Speech card visible class for mockup animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    document.querySelectorAll(".speech-card, .grade-card").forEach((el) =>
+      observer.observe(el)
+    );
+    return () => observer.disconnect();
+  }, []);
+
+  // 3D card tilt on mouse move
+  useEffect(() => {
+    const TILT_MAX = 7;
+    const cards = document.querySelectorAll(
+      ".grade-card, .feature-card, .speech-card, .testimonial-card, .pricing-card"
+    );
+
+    const onMove = (e) => {
+      const card = e.currentTarget;
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const rx = ((y / rect.height) - 0.5) * -TILT_MAX * 2;
+      const ry = ((x / rect.width) - 0.5) * TILT_MAX * 2;
+      card.style.transition = "transform 0.08s ease";
+      card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px) scale(1.01)`;
+    };
+
+    const onLeave = (e) => {
+      const card = e.currentTarget;
+      card.style.transition = "transform 0.55s cubic-bezier(0.16, 1, 0.3, 1)";
+      card.style.transform = "";
+    };
+
+    cards.forEach((card) => {
+      card.addEventListener("mousemove", onMove);
+      card.addEventListener("mouseleave", onLeave);
+    });
+
+    return () => {
+      cards.forEach((card) => {
+        card.removeEventListener("mousemove", onMove);
+        card.removeEventListener("mouseleave", onLeave);
+      });
+    };
+  }, []);
+
+  // Subtle hero mouse parallax
+  useEffect(() => {
+    const hero = document.querySelector(".title");
+    const eyebrow = document.querySelector(".hero-eyebrow");
+    if (!hero) return;
+
+    const onMove = (e) => {
+      const ox = (e.clientX / window.innerWidth - 0.5) * 18;
+      const oy = (e.clientY / window.innerHeight - 0.5) * 10;
+      hero.style.transform = `translate(${ox * 0.35}px, ${oy * 0.25}px)`;
+      if (eyebrow) {
+        eyebrow.style.transform = `translate(${ox * 0.2}px, ${oy * 0.15}px)`;
+      }
+    };
+
+    const onLeave = () => {
+      hero.style.transition = "transform 1s ease";
+      hero.style.transform = "";
+      if (eyebrow) {
+        eyebrow.style.transition = "transform 1s ease";
+        eyebrow.style.transform = "";
+      }
+    };
+
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseleave", onLeave);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseleave", onLeave);
+    };
+  }, []);
+
+  const quotes = [
+    '"I put React on my resume but I don\'t know anything about it!"',
+    '"I didn\'t even remember that I did this project!!"',
+    '"I optimized for ATS screening but how am I gonna talk about this during an interview???"',
+    '"I made up these metrics to have numbers. I didn\'t think they would ask me how I got them!"',
+    '"I said I led a team but couldn\'t explain what I actually did."',
+    '"Why am I struggling to speak about my own experiences?????"',
+  ];
+
+  const [quoteIndex, setQuoteIndex] = useState(0);
+  const [quoteFading, setQuoteFading] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setQuoteFading(true);
+      setTimeout(() => {
+        setQuoteIndex((i) => (i + 1) % quotes.length);
+        setQuoteFading(false);
+      }, 500);
+    }, 3500);
+    return () => clearInterval(interval);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -139,8 +282,13 @@ function Landing() {
         </div>
 
         <p className="hero-tagline">
-          The Proper Training You Need Before The Interview
+            Defeat the Resume Grill
         </p>
+        <div className="hero-quote">
+          <p className={`quote-text${quoteFading ? " quote-text--out" : ""}`}>
+            {quotes[quoteIndex]}
+          </p>
+        </div>
       </div>
 
       {/* CTA BUTTONS */}
@@ -172,12 +320,12 @@ function Landing() {
         <div className="grade-left">
           <p className="badge">CLEAR PROGRESSION</p>
           <h1>
-            Real Time Feedback.
+            Actionable Feedback
             <br />
-            <span>Unlimited Practice.</span>
+            <span style={{fontStyle: 'italic', fontWeight: 300}}>Unlimited Practice</span>
           </h1>
           <p className="subtitle">
-            Practice behavioral interviews with instant AI feedback so you can
+            Practice Resume Grill questions and get actionable feedback so you can
             focus on improving, not guessing.
           </p>
         </div>
@@ -194,54 +342,156 @@ function Landing() {
       {/* FEATURES */}
       <div className="feature-grid" id="features">
         <div className="feature-card fade-in">
-          <img
-            className="feature-img feature-img-upload"
-            src={UploadImg}
-            alt="Resume upload"
-          />
+          <div className="upload-showcase">
+            <div className="upload-showcase-glow" />
+            <div className="upload-showcase-ring" />
+            <div className="upload-showcase-frame">
+              <img
+                className="feature-img feature-img-upload"
+                src={UploadImg}
+                alt="Resume upload"
+              />
+            </div>
+         
+          </div>
           <p className="section-label">UNDERSTAND YOUR EXPERIENCE</p>
           <h2>Resume Based Context</h2>
           <p className="description">
-            Gives you the script you need to practice confidently about your
-            experiences.
+            You optimized your resume to pass ATS screenings but now you actually have to talk about these experiences. We make this easy for you!
           </p>
         </div>
+      </div>
 
-        <div className="feature-card fade-in">
-          <img
-            className="feature-img feature-img-session"
-            src={SessionImg}
-            alt="Practice sessions"
-          />
-          <p className="section-label">PREPARATION WITH PRACTICE</p>
-          <h2>Speaking Practice</h2>
-          <p className="description">
-            Improve speaking confidence with real-time grades and feedback.
-          </p>
+      {/* SPEECH SECTION */}
+      <div className="speech-section fade-in">
+        <h2 className="speech-title">Improve your SPEECH with Focus Drills</h2>
+        <div className="speech-grid">
+          <div className="speech-card speech-card--blue fade-in">
+            <p className="speech-label">ELIMINATE VERBAL HABITS</p>
+            <h3>Filler Word Focus</h3>
+            <p className="description">
+              Stop saying "um," "uh," "like," etc mid-answer. FlowState detects your filler words in real time and gives you targeted drills to speak with clarity and confidence.
+            </p>
+
+            {/* Filler Words image + UI Mockup */}
+            <div className="filler-media-wrap">
+              <img src={FillerWordsImg} alt="Filler words" className="filler-bg-img" />
+              <div className="filler-preview filler-preview--overlay">
+                <p className="filler-preview-title">LIVE SESSION STATS</p>
+                <div className="filler-stats-row">
+                  <div className="filler-stat-box">
+                    <span className="filler-stat-value">143<span className="filler-stat-decimal">.52</span></span>
+                    <span className="filler-stat-label">WPM</span>
+                  </div>
+                  <div className="filler-stat-divider" />
+                  <div className="filler-stat-box">
+                    <span className="filler-stat-value">2.68<span className="filler-stat-decimal">%</span></span>
+                    <span className="filler-stat-label">FILLER RATE</span>
+                  </div>
+                  <div className="filler-stat-divider" />
+                  <div className="filler-stat-box">
+                    <span className="filler-stat-value">24</span>
+                    <span className="filler-stat-label">TOTAL FILLERS</span>
+                  </div>
+                </div>
+                <div className="filler-chips">
+                  <span className="filler-chip filler-chip--hot">like <em>×10</em></span>
+                  <span className="filler-chip filler-chip--mid">well <em>×7</em></span>
+                  <span className="filler-chip filler-chip--mid">kind of <em>×4</em></span>
+                  <span className="filler-chip">actually <em>×1</em></span>
+                  <span className="filler-chip">i mean <em>×1</em></span>
+                  <span className="filler-chip">you know <em>×1</em></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="speech-card speech-card--purple fade-in">
+            <p className="speech-label">STRUCTURE YOUR ANSWERS</p>
+            <h3>S.T.A.R. Stories</h3>
+            <p className="description">
+              Turn your resume bullet points into compelling stories. Practice the Situation, Task, Action, Result framework until your answers flow naturally under pressure.
+            </p>
+
+            {/* STAR image + UI Mockup */}
+            <div className="star-media-wrap">
+              <img src={StarMethodImg} alt="STAR method" className="star-bg-img" />
+              <div className="star-preview star-preview--overlay">
+                <p className="star-preview-title">STRUCTURE</p>
+                <div className="star-preview-card">
+                  <div className="star-preview-header">
+                    <button className="star-nav-btn">‹</button>
+                    <span className="star-experience-label">EXPERIENCE 1 OF 3</span>
+                    <button className="star-nav-btn star-nav-btn--active">›</button>
+                  </div>
+                  <p className="star-question">"Can you describe the technical challenges you faced while designing the state-driven interview engine?"</p>
+                  <div className="star-row">
+                    <span className="star-row-label">SITUATION</span>
+                    <span className="star-filled">✓ Filled</span>
+                  </div>
+                  <div className="star-row">
+                    <span className="star-row-label">TASK</span>
+                    <span className="star-filled">✓ Filled</span>
+                  </div>
+                  <div className="star-row">
+                    <span className="star-row-label">ACTION</span>
+                    <span className="star-filled">✓ Filled</span>
+                  </div>
+                  <div className="star-row">
+                    <span className="star-row-label">RESULT</span>
+                    <span className="star-filled">✓ Filled</span>
+                  </div>
+                  <div className="star-dots">
+                    <span className="star-dot star-dot--active" />
+                    <span className="star-dot" />
+                    <span className="star-dot" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* PRICING */}
       <section className="pricing-section fade-in" id="pricing">
-        <p className="eyebrow">PRICING (COMING SOON...)</p>
-        <p className="pricing-subtitle">
-          Here's a look at what you would be paying for
-        </p>
+        <p className="eyebrow">PRICING</p>
+        <p className="pricing-subtitle">Choose the plan that works for you</p>
 
-          <div className="pricing-card featured">
-            <p className="plan-name">Pro</p>
-            <h3 className="price">
-              TBD<span>/mo</span>
-            </h3>
-            <ul style={{textAlign:"left"}}className="plan-features">
-              <li>✓ Unlimited practice</li>
-              <li>✓ Resume context based interviews</li>
-              <li>✓ Detailed feedback, analysis, and grades</li>
-              <li>✓ All future features included</li>
-            </ul>
-          
+        <div className="pricing-grid">
+
+          {/* Free */}
+          <div className="pricing-card">
+            <div className="pricing-card-body">
+              <p className="plan-name">Free</p>
+              <h3 className="price">$0<span>/mo</span></h3>
+              <ul className="plan-features">
+                <li><span className="check">✓</span>3 resume grill sessions total</li>
+                <li><span className="check">✓</span>1 job mapping credits</li>
+                <li><span className="check">✓</span>In depth feedback</li>
+                <li><span className="check">✓</span>Unlimited STAR method practice</li>
+              </ul>
+            </div>
+            <p className="plan-tagline">Good for one time review</p>
           </div>
 
+          {/* Pro */}
+          <div className="pricing-card featured">
+            <div className="pricing-card-body">
+              <p className="plan-name">FlowState Pro</p>
+              <h3 className="price">$TBD<span>/mo</span></h3>
+              <ul className="plan-features">
+                <li><span className="check">✓</span>Unlimited resume grill practice sessions</li>
+                <li><span className="check">✓</span>Unlimited job mapping credits</li>
+                <li><span className="check">✓</span>Job mapping analysis</li>
+                <li><span className="check">✓</span>In depth feedback</li>
+                <li><span className="check">✓</span>Unlimited STAR method practice</li>
+                <li><span className="check">✓</span>Unlimited Filler Words practice</li>
+              </ul>
+            </div>
+            <p className="plan-tagline">Great for increasing your chances of getting hired, guaranteed speech confidence, and resume awareness</p>
+          </div>
+
+        </div>
       </section>
 
 
@@ -251,36 +501,48 @@ function Landing() {
   <h2 className="faq-title">Frequently Asked Questions</h2>
 
   <div className="faq-grid">
-    <details className="faq-item">
+    <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
+      <summary>Who is FlowState for?</summary>
+      <p>
+        FlowState is for those who are heavily screened on their resume during their interview. If you optimized and tailored your resume for ATS and now confused on how to talk about this experience, this is for you!
+      </p>
+    </details>
+    <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
+      <summary>What is a Resume grill?</summary>
+      <p>
+        Resume grill is a form on questioning during interviews where you are asked about your experience on your resume 
+      </p>
+    </details>
+    <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
       <summary>What is FlowState?</summary>
       <p>
-        FlowState is a web application that helps people who struggle with their speech be able to speak confidently during their interviews.
+        FlowState is a web application that helps improve your speech for resume grill interviews.
       </p>
     </details>
 
-    <details className="faq-item">
+    <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
       <summary>Is FlowState free to use?</summary>
       <p>
         FlowState is not free to use. Since with a small team and limited resources, FlowState will move forward as a paid service. We appreciate your support! Your support for FlowState contributes to FlowState's services improving overtime! 
       </p>
     </details>
 
-    <details className="faq-item">
+    <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
       <summary>What does joining the waitlist do?</summary>
       <p>
         Joining the waitlist shows your support for FlowState and allows us to be able to contact you to inform you about new updates. Joining the waitlist also allows us to see who's interested and gives us a chance to reach out and learn what will make FlowState the best fit for you and all of our users!
       </p>
     </details>
 
-    <details className="faq-item">
+    <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
       <summary>What kind of interviews does FlowState help with?</summary>
       <p>
-        FlowState focuses on behavioral and experience-based interviews, giving you enough practice and helping
-        you speak confidently and clearly explain experiences on your resume.
+        FlowState focuses explicitly on resume grill questions and experience-based questions, giving you enough practice and helping
+        you speak confidently and clearly explain experiences on your resume during your real interviews.
       </p>
     </details>
 
-    <details className="faq-item">
+    <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
       <summary>Do I need an interviewer or partner?</summary>
       <p>
         Nope. FlowState acts as your interviewer, so you can practice
