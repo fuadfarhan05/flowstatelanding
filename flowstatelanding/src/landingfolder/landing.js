@@ -170,6 +170,7 @@ function Landing() {
 
   const [quoteIndex, setQuoteIndex] = useState(0);
   const [quoteFading, setQuoteFading] = useState(false);
+  const [isYearly, setIsYearly] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -456,28 +457,48 @@ function Landing() {
         <p className="eyebrow">PRICING</p>
         <p className="pricing-subtitle">Choose the plan that works for you</p>
 
-        <div className="pricing-grid">
+        <div className="billing-toggle">
+          <button
+            className={`billing-toggle-btn${!isYearly ? " active" : ""}`}
+            onClick={() => setIsYearly(false)}
+          >
+            Monthly
+          </button>
+          <button
+            className={`billing-toggle-btn${isYearly ? " active" : ""}`}
+            onClick={() => setIsYearly(true)}
+          >
+            Yearly
+            <span className="billing-save-badge">Save 25%</span>
+          </button>
+        </div>
 
-          {/* Free */}
-          <div className="pricing-card">
-            <div className="pricing-card-body">
-              <p className="plan-name">Free</p>
-              <h3 className="price">$0<span>/mo</span></h3>
-              <ul className="plan-features">
-                <li><span className="check">✓</span>3 resume grill sessions total</li>
-                <li><span className="check">✓</span>1 job mapping credits</li>
-                <li><span className="check">✓</span>In depth feedback</li>
-                <li><span className="check">✓</span>Unlimited STAR method practice</li>
-              </ul>
-            </div>
-            <p className="plan-tagline">Good for one time review</p>
-          </div>
+        <div className="pricing-grid">
 
           {/* Pro */}
           <div className="pricing-card featured">
             <div className="pricing-card-body">
-              <p className="plan-name">FlowState Pro</p>
-              <h3 className="price">$TBD<span>/mo</span></h3>
+              <div className="plan-name-row">
+                <p className="plan-name">FlowState Pro</p>
+              </div>
+              {isYearly ? (
+                <h3 className="price price--yearly" key="yearly">
+                  <span className="price-main-row">
+                    <span className="price-dollar">$</span>
+                    <span className="price-reel-wrap">
+                      <span className="price-reel">
+                        {Array.from({ length: 82 }, (_, i) => (
+                          <span className="price-reel-digit" key={i}>{108 - i}</span>
+                        ))}
+                      </span>
+                    </span>
+                    <span className="price-yr">/year</span>
+                  </span>
+                  <span className="price-was">instead of<s>$108</s>/year</span>
+                </h3>
+              ) : (
+                <h3 className="price" key="monthly">$9<span>/month</span></h3>
+              )}
               <ul className="plan-features">
                 <li><span className="check">✓</span>Unlimited resume grill practice sessions</li>
                 <li><span className="check">✓</span>Unlimited job mapping credits</li>
@@ -522,7 +543,7 @@ function Landing() {
     <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
       <summary>Is FlowState free to use?</summary>
       <p>
-        FlowState is not free to use. Since with a small team and limited resources, FlowState will move forward as a paid service. We appreciate your support! Your support for FlowState contributes to FlowState's services improving overtime! 
+        FlowState is a paid service. With a small team and limited resources, your support directly contributes to improving FlowState for everyone. We appreciate your support!
       </p>
     </details>
 
