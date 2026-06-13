@@ -599,8 +599,8 @@
 }
 
 .feature-img-upload {
-  width: 85%;
-  max-width: 85%;
+  width: 95%;
+  max-width: 95%;
   display: block;
   margin: 0 auto 32px;
 }
@@ -2010,12 +2010,13 @@ details.faq-item[open] {
 /* STAR Preview Mockup */
 .star-media-wrap {
   position: relative;
-  margin-top: 28px;
+  margin-top: 4px;
   border-radius: 18px;
   overflow: hidden;
 }
 
 .star-bg-img {
+  margin-top: 55px;
   width: 100%;
   display: block;
   border-radius: 18px;
@@ -2034,11 +2035,12 @@ details.faq-item[open] {
 
 .star-preview--overlay {
   position: absolute;
-  top: 16px;
-  left: 16px;
+  bottom: 0;
+  right: 0;
   width: 46%;
   margin-top: 0;
   padding: 10px 12px;
+  border-radius: 18px 0 18px 0;
   opacity: 1;
   transition: opacity 0.3s ease;
 }

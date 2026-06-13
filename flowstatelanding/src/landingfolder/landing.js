@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import "./landing.css";
 
-import UploadImg from "../images/interviewfromresume.webp";
+import UploadImg from "../images/resumetointerview.webp";
 import FillerWordsImg from "../images/fillerwordnew.webp";
-import StarMethodImg from "../images/starmethod.webp";
+import StarMethodImg from "../images/starmethodnew.webp";
 import grade from "../images/grade.png";
 import logo from "../images/flowstatelogo.png";
 
