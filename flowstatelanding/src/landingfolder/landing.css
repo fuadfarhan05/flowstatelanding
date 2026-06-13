@@ -2746,3 +2746,419 @@ details.faq-item[open] p {
 .feature-card.visible::before {
   animation: accentSweep 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
 }
+
+/* ─── NAVBAR BRAND (right side) ─── */
+.nav-right-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-right-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-brand-text {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.nav-brand-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+/* ─── INTERVIEW HERO SECTION ─── */
+.interview-hero {
+  padding-top: 110px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 44px;
+}
+
+.interview-hero-title {
+  font-family: 'Raleway', sans-serif;
+  font-size: clamp(0.5rem, 3.0vw, 2.0rem);
+  font-weight: 250;
+  text-align: center;
+  color: #fff;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+  margin: 0;
+}
+
+.interview-hero-subtitle {
+  font-family: 'Raleway', sans-serif;
+  font-size: clamp(1.1rem, 2.8vw, 2rem);
+  font-weight: 600;
+  background: linear-gradient(90deg, #D1F0FF, #5E7BFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── DEMO CONTAINER ─── */
+.interview-demo-container {
+  display: flex;
+  align-items: center;
+  width: 90%;
+  max-width: 960px;
+  padding-left: 130px;
+  box-sizing: border-box;
+}
+
+/* ─── TELEPROMPTER ─── */
+.teleprompter-wrapper {
+  position: relative;
+  width: 400px;
+  flex-shrink: 0;
+  height: 400px;
+  overflow: hidden;
+}
+
+/* Top fade */
+.teleprompter-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(to bottom, #000000 0%, transparent 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Bottom fade */
+.teleprompter-wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(to top, #000000 0%, transparent 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+@keyframes teleprompterScroll {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
+
+.teleprompter-inner {
+  animation: teleprompterScroll 22s linear infinite;
+  will-change: transform;
+}
+
+.teleprompter-text {
+  font-size: 1.35rem;
+  line-height: 2;
+  color: rgba(255, 255, 255, 0.85);
+  padding: 0 16px 0 0;
+  margin: 0;
+}
+
+/* Segment highlight colors */
+.seg { display: inline; }
+.seg--normal   { color: rgba(255, 255, 255, 0.82); }
+.seg--filler   { color: #facc15; font-weight: 600; }
+.seg--structure { color: #c084fc; font-weight: 600; }
+.seg--drift    { color: #fb923c; font-weight: 600; }
+
+/* ─── SVG ARROWS ─── */
+.arrows-svg {
+  width: 160px;
+  flex-shrink: 0;
+  height: 400px;
+  overflow: visible;
+}
+
+/* Arrow path lengths (approximate for cubic bezier ~160px wide) */
+@keyframes arrowDraw {
+  from { stroke-dashoffset: 220; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes arrowPulse {
+  0%, 100% { opacity: 0.75; }
+  50%       { opacity: 1; }
+}
+
+.arrow {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  animation:
+    arrowDraw 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+    arrowPulse 2.4s ease-in-out 1s infinite;
+}
+
+.arrow--filler    { animation-delay: 0.3s, 1.1s; }
+.arrow--structure { animation-delay: 0.8s, 1.6s; }
+.arrow--drift     { animation-delay: 1.3s, 2.1s; }
+
+/* ─── PILLS ─── */
+.pills-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex-shrink: 0;
+}
+
+.pill {
+  border-radius: 100px;
+  padding: 14px 32px;
+  font-weight: 800;
+  font-size: 1rem;
+  color: #0a0f19;
+  white-space: nowrap;
+  cursor: default;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.pill--filler {
+  background: #facc15;
+  animation: pillFloat1 3s ease-in-out infinite alternate;
+}
+
+.pill--structure {
+  background: #c084fc;
+  animation: pillFloat2 3.4s ease-in-out infinite alternate;
+}
+
+.pill--drift {
+  background: #fb923c;
+  animation: pillFloat3 2.8s ease-in-out infinite alternate;
+}
+
+@keyframes pillFloat1 {
+  from { transform: translateY(0px); }
+  to   { transform: translateY(-5px); }
+}
+
+@keyframes pillFloat2 {
+  from { transform: translateY(-3px); }
+  to   { transform: translateY(4px); }
+}
+
+@keyframes pillFloat3 {
+  from { transform: translateY(0px); }
+  to   { transform: translateY(-6px); }
+}
+
+/* ─── GLOBAL RESPONSIVE FIXES ─── */
+
+/* Tablet (≤ 1024px) */
+@media (max-width: 1024px) {
+  .interview-hero {
+    padding-top: 100px;
+    gap: 36px;
+  }
+
+  .interview-demo-container {
+    padding-left: 70px;
+  }
+
+  .teleprompter-wrapper {
+    width: 340px;
+  }
+
+  .arrows-svg {
+    width: 120px;
+  }
+}
+
+/* Mobile (≤ 768px) */
+@media (max-width: 768px) {
+
+  /* ── Interview hero ── */
+  .interview-hero {
+    padding-top: 90px;
+    gap: 28px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .interview-hero-title {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  .interview-hero-subtitle {
+    font-size: clamp(1rem, 4.5vw, 1.4rem);
+  }
+
+  .interview-demo-container {
+    flex-direction: column;
+    padding-left: 0;
+    gap: 24px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .teleprompter-wrapper {
+    width: min(90vw, 420px);
+    height: 320px;
+  }
+
+  .teleprompter-text {
+    font-size: 1.15rem;
+  }
+
+  .arrows-svg {
+    display: none;
+  }
+
+  .pills-column {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .pill {
+    padding: 10px 22px;
+    font-size: 0.9rem;
+  }
+
+  .nav-right-brand {
+    display: none;
+  }
+
+  /* ── Filler words image — stop it being cut off ── */
+  .filler-bg-img {
+    min-height: unset;
+    height: 260px;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .filler-preview--overlay {
+    width: 52%;
+    padding: 10px 10px 8px;
+  }
+
+  .filler-stats-row {
+    gap: 0;
+    margin-bottom: 10px;
+  }
+
+  .filler-stat-value {
+    font-size: 14px;
+  }
+
+  .filler-stat-label {
+    font-size: 8px;
+  }
+
+  .filler-chips {
+    gap: 4px;
+  }
+
+  .filler-chip {
+    font-size: 9px;
+    padding: 3px 7px;
+  }
+
+  /* ── Star method image — match filler height ── */
+  .star-bg-img {
+    margin-top: 16px;
+    height: 260px;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .star-preview--overlay {
+    width: 52%;
+    padding: 8px 10px;
+  }
+
+  /* ── Speech cards equal height ── */
+  .speech-card {
+    min-height: unset;
+  }
+
+  .filler-media-wrap,
+  .star-media-wrap {
+    min-height: 260px;
+  }
+}
+
+/* Small mobile (≤ 480px) */
+@media (max-width: 480px) {
+
+  /* ── Interview hero ── */
+  .interview-hero {
+    padding-top: 80px;
+    gap: 20px;
+  }
+
+  .teleprompter-wrapper {
+    height: 260px;
+  }
+
+  .teleprompter-text {
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+
+  /* ── Filler / Star images ── */
+  .filler-bg-img,
+  .star-bg-img {
+    height: 220px;
+  }
+
+  .filler-media-wrap,
+  .star-media-wrap {
+    min-height: 220px;
+  }
+
+  /* Hide overlays on very small screens — too cramped */
+  .filler-preview--overlay,
+  .star-preview--overlay {
+    display: none;
+  }
+
+  /* ── General layout ── */
+  .grade-card {
+    padding: 36px 16px;
+  }
+
+  .speech-section {
+    padding: 0 12px;
+  }
+
+  .speech-card {
+    padding: 28px 16px;
+  }
+
+  .pricing-section {
+    padding: 60px 16px;
+  }
+
+  .testimonials {
+    padding: 60px 12px;
+  }
+
+  .testimonial-card {
+    padding: 36px 20px;
+  }
+
+  .nav-brand-text {
+    font-size: 0.95rem;
+  }
+
+  .nav-brand-logo {
+    width: 28px;
+    height: 28px;
+  }
+}

@@ -127,62 +127,31 @@ function Landing() {
     };
   }, []);
 
-  // Subtle hero mouse parallax
-  useEffect(() => {
-    const hero = document.querySelector(".title");
-    const eyebrow = document.querySelector(".hero-eyebrow");
-    if (!hero) return;
 
-    const onMove = (e) => {
-      const ox = (e.clientX / window.innerWidth - 0.5) * 18;
-      const oy = (e.clientY / window.innerHeight - 0.5) * 10;
-      hero.style.transform = `translate(${ox * 0.35}px, ${oy * 0.25}px)`;
-      if (eyebrow) {
-        eyebrow.style.transform = `translate(${ox * 0.2}px, ${oy * 0.15}px)`;
-      }
-    };
-
-    const onLeave = () => {
-      hero.style.transition = "transform 1s ease";
-      hero.style.transform = "";
-      if (eyebrow) {
-        eyebrow.style.transition = "transform 1s ease";
-        eyebrow.style.transform = "";
-      }
-    };
-
-    window.addEventListener("mousemove", onMove);
-    window.addEventListener("mouseleave", onLeave);
-    return () => {
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("mouseleave", onLeave);
-    };
-  }, []);
-
-  const quotes = [
-    '"I put React on my resume but I don\'t know anything about it!"',
-    '"I didn\'t even remember that I did this project!!"',
-    '"I optimized for ATS screening but how am I gonna talk about this during an interview???"',
-    '"I made up these metrics to have numbers. I didn\'t think they would ask me how I got them!"',
-    '"I said I led a team but couldn\'t explain what I actually did."',
-    '"Why am I struggling to speak about my own experiences?????"',
-  ];
-
-  const [quoteIndex, setQuoteIndex] = useState(0);
-  const [quoteFading, setQuoteFading] = useState(false);
   const [isYearly, setIsYearly] = useState(false);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setQuoteFading(true);
-      setTimeout(() => {
-        setQuoteIndex((i) => (i + 1) % quotes.length);
-        setQuoteFading(false);
-      }, 500);
-    }, 3500);
-    return () => clearInterval(interval);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const INTERVIEW_SEGMENTS = [
+    { text: "“Uh", type: "filler" },
+    { text: ", a challenge that I faced at my current job is ", type: "structure" },
+    { text: "um", type: "filler" },
+    { text: ". ", type: "normal" },
+    { text: "Pretty much", type: "filler" },
+    { text: ", so in ", type: "normal" },
+    { text: "the beginning of college there was this teacher which was the reason for getting this job", type: "drift" },
+    { text: " but ", type: "normal" },
+    { text: "uh", type: "filler" },
+    { text: " yeah so fast forward to ", type: "normal" },
+    { text: "uh", type: "filler" },
+    { text: " now the challenge is ", type: "normal" },
+    { text: "like", type: "filler" },
+    { text: " I ", type: "normal" },
+    { text: "like", type: "filler" },
+    { text: " struggle ", type: "normal" },
+    { text: "pretty much", type: "filler" },
+    { text: " with ", type: "normal" },
+    { text: "um", type: "filler" },
+    { text: " communication within the team”", type: "structure" },
+  ];
 
   return (
     <div className="background">
@@ -194,126 +163,138 @@ function Landing() {
       {/* NAVBAR */}
       <div className="navbar">
         <nav className="glass-navbar">
-          <div className="nav-left" style={{ display: "flex" }}>
-            <img
-              style={{ width: "50px", height: "50px" }}
-              src={logo}
-              alt="flowstate-logo"
-            />
+          <div className="nav-left">
+            <div className="nav-right-brand">
+              <span className="nav-brand-text">FlowState</span>
+              <img src={logo} className="nav-brand-logo" alt="flowstate-logo" />
+            </div>
           </div>
 
           <ul className="nav-links">
-
-
             <li>
               <a
                 href="#tally-open=2EN49e&tally-layout=modal&tally-width=400&tally-overlay=1"
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  cursor: "pointer",
-                }}
+                style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}
               >
                 Support Us
               </a>
             </li>
-
-
-
             <li>
               <a
                 href="#pricing"
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  cursor: "pointer",
-                }}
+                style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}
               >
                 Pricing
               </a>
             </li>
-
             <li>
               <a
                 href="#faq"
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  cursor: "pointer",
-                }}
+                style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}
               >
                 FAQ
               </a>
             </li>
-
-         
-
-
-
           </ul>
 
-          <button className="nav-btn" 
-           data-tally-open="2EN49e"
-          data-tally-layout="modal"
-          data-tally-width="400"
-          data-tally-overlay="1"
-         >
+          <button
+            className="nav-btn"
+            data-tally-open="2EN49e"
+            data-tally-layout="modal"
+            data-tally-width="400"
+            data-tally-overlay="1"
+          >
             Join Waitlist
           </button>
         </nav>
       </div>
 
-      {/* HERO */}
-      <p className="hero-eyebrow">
-        Enter Your
-      </p>
+      {/* INTERVIEW HERO */}
+      <section className="interview-hero">
+        <h1 className="interview-hero-title">
+          AI can't do your interviews for you,<br />
+          <span className="interview-hero-subtitle">but we can help you do them by YOURSELF</span>
+        </h1>
 
-      <div className="title">
-        <div className="hero-brand">
-          <h1 className="hero-title">
-            FlowState
-          </h1>
-          <img
-            className="hero-logo"
-            style={{marginBottom: '20px'}}
-            src={logo}
-            alt="flowstate-logo"
-          />
+        <div className="interview-demo-container">
+          {/* Left: Teleprompter */}
+          <div className="teleprompter-wrapper">
+            <div className="teleprompter-inner">
+              {/* Render text twice for seamless loop */}
+              {[0, 1].map((copy) => (
+                <p key={copy} className="teleprompter-text">
+                  {INTERVIEW_SEGMENTS.map((seg, i) => (
+                    <span key={i} className={`seg seg--${seg.type}`}>
+                      {seg.text}
+                    </span>
+                  ))}
+                </p>
+              ))}
+            </div>
+          </div>
+
+          {/* SVG Arrows */}
+          <svg
+            className="arrows-svg"
+            viewBox="0 0 160 400"
+            xmlns="http://www.w3.org/2000/svg"
+            overflow="visible"
+          >
+            {/* Arrow: filler words → top pill */}
+            <path
+              className="arrow arrow--filler"
+              d="M 0,120 C 70,120 100,128 180,128"
+              stroke="#facc15"
+              strokeWidth="2"
+              fill="none"
+            />
+            {/* Arrow: structure → middle pill */}
+            <path
+              className="arrow arrow--structure"
+              d="M 0,200 C 70,200 100,200 180,200"
+              stroke="#c084fc"
+              strokeWidth="2"
+              fill="none"
+            />
+            {/* Arrow: drift → bottom pill */}
+            <path
+              className="arrow arrow--drift"
+              d="M 0,290 C 70,290 100,272 180,272"
+              stroke="#fb923c"
+              strokeWidth="2"
+              fill="none"
+            />
+          </svg>
+
+          {/* Right: Pills */}
+          <div className="pills-column">
+            <div className="pill pill--filler">Filler words</div>
+            <div className="pill pill--structure">Structure</div>
+            <div className="pill pill--drift">Drifts</div>
+          </div>
         </div>
 
-        <p className="hero-tagline">
-            Defeat the Resume Grill
-        </p>
-        <div className="hero-quote">
-          <p className={`quote-text${quoteFading ? " quote-text--out" : ""}`}>
-            {quotes[quoteIndex]}
-          </p>
+        {/* CTA BUTTONS */}
+        <div className="buttons-place">
+          <button
+            className="get-started"
+            data-tally-open="2EN49e"
+            data-tally-layout="modal"
+            data-tally-width="400"
+            data-tally-overlay="1"
+          >
+            Join Our Waitlist
+          </button>
+          <button
+            className="learn-more-btn"
+            onClick={() =>
+              document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            View Pricing
+          </button>
         </div>
-      </div>
-
-      {/* CTA BUTTONS */}
-      <div className="buttons-place">
-        <button
-          className="get-started"
-          data-tally-open="2EN49e"
-          data-tally-layout="modal"
-          data-tally-width="400"
-          data-tally-overlay="1"
-        >
-          Join Our Waitlist
-        </button>
-
-        <button
-          className="learn-more-btn"
-          onClick={() =>
-            document
-              .getElementById("pricing")
-              ?.scrollIntoView({ behavior: "smooth" })
-          }
-        >
-          View Pricing
-        </button>
-      </div>
+      </section>
 
       {/* GRADE SECTION */}
       <div className="grade-card fade-in">
