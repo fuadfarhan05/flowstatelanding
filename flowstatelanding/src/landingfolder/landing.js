@@ -460,7 +460,6 @@ function Landing() {
           <div className="pricing-card featured">
             <div className="pricing-card-body">
               <div className="plan-name-row">
-                <p className="plan-name">FlowState Pro</p>
               </div>
               {isYearly ? (
                 <h3 className="price price--yearly" key="yearly">
@@ -481,12 +480,11 @@ function Landing() {
                 <h3 className="price" key="monthly">$9<span>/month</span></h3>
               )}
               <ul className="plan-features">
-                <li><span className="check">✓</span>Unlimited resume grill practice sessions</li>
-                <li><span className="check">✓</span>Unlimited job mapping credits</li>
-                <li><span className="check">✓</span>Job mapping analysis</li>
+                <li><span className="check">✓</span>Unlimited interview practice sessions</li>
                 <li><span className="check">✓</span>In depth feedback</li>
                 <li><span className="check">✓</span>Unlimited STAR method practice</li>
                 <li><span className="check">✓</span>Unlimited Filler Words practice</li>
+                <li><span className="check">✓</span>Access to ALL future features</li>
               </ul>
             </div>
             <p className="plan-tagline">Great for increasing your chances of getting hired, guaranteed speech confidence, and resume awareness</p>
