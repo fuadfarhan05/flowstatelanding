@@ -513,6 +513,12 @@ function Landing() {
       </p>
     </details>
     <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
+      <summary>What is a Curveball?</summary>
+      <p>
+        Every now and then you might have an interview where the interviewer asks you a question that is a bit far fetched and out of touch to trick you and pressure you on the spot. FlowState's curveball interview is made to help you practice these unexpected questions before your real interview!
+      </p>
+    </details>
+    <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
       <summary>What is FlowState?</summary>
       <p>
         FlowState is a web application that helps improve your speech for resume grill interviews.
@@ -536,8 +542,7 @@ function Landing() {
     <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
       <summary>What kind of interviews does FlowState help with?</summary>
       <p>
-        FlowState focuses explicitly on resume grill questions and experience-based questions, giving you enough practice and helping
-        you speak confidently and clearly explain experiences on your resume during your real interviews.
+        FlowState focuses on how to improve you speech during 3 different kinds of interview styles. Modern Interviews, Resume grill interviews, and Curveball Interviews. 
       </p>
     </details>
 
