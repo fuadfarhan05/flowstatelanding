@@ -450,7 +450,7 @@ function Landing() {
             onClick={() => setIsYearly(true)}
           >
             Yearly
-            <span className="billing-save-badge">Save 25%</span>
+            <span className="billing-save-badge">Save 75%</span>
           </button>
         </div>
 
@@ -503,7 +503,7 @@ function Landing() {
     <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
       <summary>Who is FlowState for?</summary>
       <p>
-        FlowState is for those who are heavily screened on their resume during their interview. If you optimized and tailored your resume for ATS and now confused on how to talk about this experience, this is for you!
+        Either you are new to interviewing, you feel nervous, you struggle with your public speaking, overwhelmed by the pressure. This is the EXACT thing you need. 
       </p>
     </details>
     <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
