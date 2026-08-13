@@ -108,6 +108,13 @@
   border: none;
 }
 
+.testimonial-cta {
+  width: auto;
+  padding: 0 28px;
+  white-space: nowrap;
+  border-radius: 999px;
+}
+
 .learn-more-btn {
   height: 50px;
   width: 150px;
@@ -870,400 +877,252 @@
   text-align: center;
 }
 
-.pricing-title {
-  font-size: 42px;
-  color: white;
-  margin-top: 10px;
-}
-
 .pricing-subtitle {
   color: #b5b5b5;
   font-size: 18px;
   margin-bottom: 60px;
 }
 
-.pricing-grid {
+/* ===== Pricing cards (ported from flowstate pricing page) ===== */
+.pp-grid {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 24px;
-  max-width: 860px;
+  gap: 32px;
+  max-width: 700px;
   margin: 0 auto;
 }
 
-.pricing-grid .pricing-card {
-  width: 100%;
-  max-width: 440px;
-}
-
-.pricing-card {
-  background: rgba(16, 20, 47, 0.7);
-  border-radius: 24px;
-  padding: 56px 48px;
-
+.pp-card {
+  position: relative;
+  width: 280px;
+  height: 380px;
+  border-radius: 28px;
+  padding: 28px 24px 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  color: white;
-  text-align: left;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(14px);
-
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-}
-
-.pricing-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
-  border-color: rgba(255, 255, 255, 0.14);
-}
-
-.pricing-card-body {
-  flex: 1;
-}
-
-@keyframes pricingPulse {
-  0%, 100% {
-    box-shadow: 0 0 30px rgba(127, 155, 255, 0.25), 0 0 60px rgba(127, 155, 255, 0.08);
-  }
-  50% {
-    box-shadow: 0 0 50px rgba(127, 155, 255, 0.45), 0 0 100px rgba(127, 155, 255, 0.15);
-  }
-}
-
-.pricing-card.featured {
-  position: relative;
   overflow: hidden;
-  border: 1px solid rgba(127, 155, 255, 0.45);
-  animation: pricingPulse 3.5s ease-in-out infinite;
-  background: rgba(22, 28, 80, 0.9);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  transition: transform 0.25s ease;
 }
 
-/* Top accent line on pricing */
-.pricing-card.featured::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 10%;
-  right: 10%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #7f9bff, transparent);
-  border-radius: 100%;
+.pp-card:hover {
+  transform: translateY(-6px);
 }
 
-/* Shimmer on pricing */
-.pricing-card.featured::after {
-  content: '';
+.pp-card-art {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    110deg,
-    transparent 40%,
-    rgba(255, 255, 255, 0.04) 50%,
-    transparent 60%
-  );
-  transform: translateX(-100%);
-  transition: transform 0.65s ease;
+  z-index: 0;
+}
+
+.pp-card-dim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(4, 6, 16, 0);
+  transition: background 0.4s ease;
   pointer-events: none;
 }
 
-.pricing-card.featured:hover::after {
-  transform: translateX(120%);
+.pp-card:hover .pp-card-dim {
+  background: rgba(4, 6, 16, 0.82);
 }
 
-.plan-name {
-  font-size: 13px;
-  letter-spacing: 1.5px;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #7f9bff;
-  margin-bottom: 12px;
+.pp-card-monthly {
+  background: #ffffff;
 }
 
-@keyframes priceEnter {
-  from {
-    opacity: 0;
-    transform: translateY(10px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+.pp-card-monthly .pp-card-art {
+  background:
+    radial-gradient(ellipse 85% 55% at 28% 100%, rgba(8, 8, 14, 0.92), transparent 62%),
+    radial-gradient(ellipse 70% 50% at 78% 78%, rgba(30, 30, 42, 0.75), transparent 65%),
+    radial-gradient(ellipse 60% 40% at 55% 55%, rgba(60, 60, 78, 0.4), transparent 70%);
 }
 
-.price {
-  font-size: 45px;
-  font-weight: 400;
-  margin: 0 0 24px 0;
-  color: white;
-  line-height: 1;
-  animation: priceEnter 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+.pp-card-yearly {
+  background: linear-gradient(180deg, #eaf2ff 0%, #cfe0ff 40%, #6f9dff 100%);
 }
 
-.price span {
-  font-size: 18px;
-  font-weight: 400;
-  color: #aaa;
+.pp-card-yearly .pp-card-art {
+  background:
+    radial-gradient(ellipse 85% 55% at 70% 100%, rgba(70, 120, 255, 0.85), transparent 62%),
+    radial-gradient(ellipse 65% 45% at 25% 75%, rgba(160, 195, 255, 0.7), transparent 65%),
+    radial-gradient(ellipse 55% 40% at 50% 45%, rgba(220, 235, 255, 0.5), transparent 70%);
 }
 
-.price-note {
-  color: #b5b5b5;
-  margin-bottom: 25px;
-}
-
-.price-per-month {
-  display: block;
+.pp-badge {
+  position: absolute;
+  top: 28px;
+  right: 24px;
+  z-index: 2;
+  background: #ffffff;
+  color: #0a1550;
   font-size: 12px;
-  font-weight: 700;
-  color: #aaa;
-  margin-top: 4px;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Yearly reel animation */
-.price--yearly {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.price-main-row {
-  display: flex;
-  align-items: center;
-  line-height: 1;
-}
-
-/* Reset the broad .price span rule for yearly children */
-.price--yearly span {
-  font-size: inherit;
-  color: inherit;
-  font-weight: inherit;
-}
-
-.price--yearly .price-dollar {
-  font-size: 45px;
-  font-weight: 400;
-  color: white;
-}
-
-.price--yearly .price-yr {
-  font-size: 18px;
-  font-weight: 400;
-  color: #aaa;
-  margin-left: 3px;
-  align-self: center;
-}
-
-.price--yearly .price-per-month {
-  font-size: 11px;
-  font-weight: 700;
-  color: #aaa;
-  letter-spacing: 0.03em;
-}
-
-.price-was {
-  display: block;
-  font-size: 25px !important;
-  font-weight: 500;
-  color: #888;
-  margin-top: 6px;
-  animation: priceEnter 0.4s 1.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.price-was s {
-  color: #ff5555;
-  font-weight: 700;
-}
-
-/* Plan name row — holds name + save badge */
-.plan-name-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 0;
-}
-
-.plan-name-row .plan-name {
-  margin: 0;
-}
-
-.card-save-badge {
-  background: linear-gradient(135deg, #22c55e, #16a34a);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 20px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  animation: badgePop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes badgePop {
-  from { opacity: 0; transform: scale(0.6); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-.price-reel-wrap {
-  height: 52px;
-  overflow: hidden;
-  display: inline-flex;
-  align-items: flex-start;
-}
-
-.price-reel {
-  display: flex;
-  flex-direction: column;
-  animation:
-    reelSpin  1.9s cubic-bezier(0.04, 0.9, 0.18, 1) forwards,
-    reelColor 1.9s ease forwards,
-    reelWeight 1.9s ease forwards;
-}
-
-.price-reel-digit {
-  height: 52px;
-  font-size: 45px;
-  display: flex;
-  align-items: center;
-  line-height: 1;
-}
-
-/* 81 steps × 52px = 4212px to reach 27 */
-@keyframes reelSpin {
-  from { transform: translateY(0); }
-  to   { transform: translateY(-4212px); }
-}
-
-@keyframes reelColor {
-  0%  { color: #ff3b3b; }
-  65% { color: #ff3b3b; }
-  100% { color: white; }
-}
-
-@keyframes reelWeight {
-  0%  { font-weight: 700; }
-  80% { font-weight: 700; }
-  100% { font-weight: 400; }
-}
-
-/* Billing toggle */
-.billing-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 50px;
-  padding: 4px;
-  width: fit-content;
-  margin: 0 auto 40px;
-}
-
-.billing-toggle-btn {
+.pp-price {
   position: relative;
-  padding: 9px 24px;
-  border-radius: 50px;
-  border: none;
-  background: transparent;
-  color: #888;
-  font-size: 14px;
+  z-index: 2;
+  margin: 0;
+  text-align: left;
+}
+
+.pp-price-amount,
+.pp-price-period {
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  transition: background-position 0.6s ease;
+}
+
+.pp-price-amount {
+  font-size: 34px;
+  font-weight: 800;
+  background-image: linear-gradient(to right, #ffffff 50%, #0b1030 50%);
+}
+
+.pp-price-period {
+  font-size: 16px;
   font-weight: 500;
-  cursor: pointer;
-  transition: color 0.25s ease;
+  margin-left: 2px;
+  background-image: linear-gradient(to right, #ffffff 50%, rgba(11, 16, 48, 0.6) 50%);
+}
+
+.pp-card:hover .pp-price-amount,
+.pp-card:hover .pp-price-period {
+  background-position: 0% 0;
+}
+
+.pp-price-trial {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(11, 16, 48, 0.6);
+  transition: color 0.5s ease;
+}
+
+.pp-card:hover .pp-price-trial {
+  color: #ffffff;
+}
+
+.pp-price-was {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(11, 16, 48, 0.55);
+  text-decoration: line-through;
+  text-decoration-color: #e5484d;
+  text-decoration-thickness: 2px;
+}
+
+.pp-features {
+  position: absolute;
+  z-index: 2;
+  top: 132px;
+  left: 24px;
+  right: 24px;
+  bottom: 76px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
   display: flex;
-  align-items: center;
-  gap: 8px;
-  z-index: 1;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  text-align: left;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
 }
 
-.billing-toggle-btn.active {
-  color: #fff;
+.pp-card:hover .pp-features {
+  opacity: 1;
 }
 
-.billing-toggle-btn.active::before {
+.pp-features li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #ffffff;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.pp-features li::before {
   content: '';
   position: absolute;
-  inset: 0;
-  border-radius: 50px;
-  background: rgba(255, 255, 255, 0.13);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  z-index: -1;
-  animation: toggleSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  left: 0;
+  top: 6px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffffff;
 }
 
-@keyframes toggleSlide {
-  from {
-    opacity: 0;
-    transform: scaleX(0.85);
-  }
-  to {
-    opacity: 1;
-    transform: scaleX(1);
-  }
+.pp-card:hover .pp-features li {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.billing-save-badge {
-  background: linear-gradient(135deg, #7c6af4, #5e9cf5);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 2px 7px;
-  border-radius: 20px;
-  letter-spacing: 0.02em;
-}
+.pp-features li:nth-child(1) { transition-delay: 0.05s; }
+.pp-features li:nth-child(2) { transition-delay: 0.1s; }
+.pp-features li:nth-child(3) { transition-delay: 0.15s; }
+.pp-features li:nth-child(4) { transition-delay: 0.2s; }
+.pp-features li:nth-child(5) { transition-delay: 0.25s; }
 
-.plan-features {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 32px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.plan-features li {
-  font-size: 15px;
-  color: #c8cfe0;
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.plan-tagline {
-  font-size: 13px;
-  color: #7f9bff;
-  font-weight: 600;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 20px;
-  margin-top: 8px;
-  line-height: 1.5;
-}
-
-.check {
-  color: #7f9bff;
-  font-size: 14px;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-.pricing-btn {
+.pp-btn {
+  position: relative;
+  z-index: 2;
   width: 100%;
   padding: 14px;
-  border-radius: 12px;
+  border-radius: 999px;
   font-size: 15px;
+  font-weight: 700;
   cursor: pointer;
   border: none;
+  transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
-.pricing-btn.primary {
-  background: #7f9bff;
-  color: white;
+.pp-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
 }
 
-.pricing-btn.secondary {
-  background: transparent;
-  color: white;
-  border: 1px solid rgba(255,255,255,0.2);
+.pp-btn-dark {
+  background: #14172b;
+  color: #ffffff;
+}
+
+.pp-btn-navy {
+  background: #0a1550;
+  color: #ffffff;
+}
+
+@media (max-width: 560px) {
+  .pp-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pp-card {
+    width: 100%;
+    max-width: 280px;
+  }
 }
 
 
@@ -1403,10 +1262,6 @@
   /* Pricing */
   .pricing-section {
     padding: 80px 40px;
-  }
-
-  .pricing-grid {
-    grid-template-columns: repeat(2, 1fr);
   }
 
   /* Testimonials */
@@ -1599,25 +1454,6 @@
     padding: 44px 32px;
   }
 
-  /* Pricing */
-  .pricing-grid {
-    grid-template-columns: 1fr;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-
-  .pricing-card {
-    text-align: center;
-  }
-
-  .pricing-title {
-    font-size: 32px;
-  }
-
-  .price {
-    font-size: 40px;
-  }
-
   /* FAQ */
   .faq-section {
     margin-top: 60px;
@@ -1683,14 +1519,6 @@
 
   .pricing-section {
     padding: 60px 12px;
-  }
-
-  .pricing-grid {
-    max-width: 100%;
-  }
-
-  .price {
-    font-size: 34px;
   }
 
   .faq-title {
@@ -2639,20 +2467,9 @@ details.faq-item[open] {
 .grade-card,
 .feature-card,
 .speech-card,
-.testimonial-card,
-.pricing-card {
+.testimonial-card {
   will-change: transform;
   transform-style: preserve-3d;
-}
-
-/* --- Pricing featured card animated top border glow --- */
-@keyframes borderGlow {
-  0%, 100% { opacity: 0.6; }
-  50%       { opacity: 1; }
-}
-
-.pricing-card.featured::before {
-  animation: borderGlow 2.5s ease-in-out infinite;
 }
 
 /* --- FAQ open animation --- */
@@ -2717,7 +2534,7 @@ details.faq-item[open] p {
   50%       { opacity: 1; }
 }
 
-.eyebrow, .section-label, .speech-label, .badge, .plan-name {
+.eyebrow, .section-label, .speech-label, .badge {
   animation: eyebrowPulse 4s ease-in-out infinite;
 }
 

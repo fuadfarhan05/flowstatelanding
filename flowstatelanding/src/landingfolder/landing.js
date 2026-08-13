@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./landing.css";
 
 import UploadImg from "../images/resumetointerview.webp";
@@ -45,7 +45,7 @@ function Landing() {
   // Staggered child reveals for grid sections
   useEffect(() => {
     const grids = document.querySelectorAll(
-      ".testimonial-grid, .speech-grid, .pricing-grid"
+      ".testimonial-grid, .speech-grid, .pp-grid"
     );
 
     grids.forEach((grid) => {
@@ -94,7 +94,7 @@ function Landing() {
   useEffect(() => {
     const TILT_MAX = 7;
     const cards = document.querySelectorAll(
-      ".grade-card, .feature-card, .speech-card, .testimonial-card, .pricing-card"
+      ".grade-card, .feature-card, .speech-card, .testimonial-card"
     );
 
     const onMove = (e) => {
@@ -127,8 +127,6 @@ function Landing() {
     };
   }, []);
 
-
-  const [isYearly, setIsYearly] = useState(false);
 
   const INTERVIEW_SEGMENTS = [
     { text: "“Uh", type: "filler" },
@@ -173,7 +171,7 @@ function Landing() {
           <ul className="nav-links">
             <li>
               <a
-                href="#tally-open=2EN49e&tally-layout=modal&tally-width=400&tally-overlay=1"
+                href="#tally-open=7R0EE0&tally-layout=modal&tally-width=400&tally-overlay=1"
                 style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}
               >
                 Support Us
@@ -204,7 +202,7 @@ function Landing() {
             data-tally-width="400"
             data-tally-overlay="1"
           >
-            Join Waitlist
+            Get Started
           </button>
         </nav>
       </div>
@@ -283,7 +281,7 @@ function Landing() {
             data-tally-width="400"
             data-tally-overlay="1"
           >
-            Join Our Waitlist
+            Get Started
           </button>
           <button
             className="learn-more-btn"
@@ -438,58 +436,48 @@ function Landing() {
         <p className="eyebrow">PRICING</p>
         <p className="pricing-subtitle">Choose the plan that works for you</p>
 
-        <div className="billing-toggle">
-          <button
-            className={`billing-toggle-btn${!isYearly ? " active" : ""}`}
-            onClick={() => setIsYearly(false)}
-          >
-            Monthly
-          </button>
-          <button
-            className={`billing-toggle-btn${isYearly ? " active" : ""}`}
-            onClick={() => setIsYearly(true)}
-          >
-            Yearly
-            <span className="billing-save-badge">Save 75%</span>
-          </button>
-        </div>
-
-        <div className="pricing-grid">
-
-          {/* Pro */}
-          <div className="pricing-card featured">
-            <div className="pricing-card-body">
-              <div className="plan-name-row">
-              </div>
-              {isYearly ? (
-                <h3 className="price price--yearly" key="yearly">
-                  <span className="price-main-row">
-                    <span className="price-dollar">$</span>
-                    <span className="price-reel-wrap">
-                      <span className="price-reel">
-                        {Array.from({ length: 82 }, (_, i) => (
-                          <span className="price-reel-digit" key={i}>{108 - i}</span>
-                        ))}
-                      </span>
-                    </span>
-                    <span className="price-yr">/year</span>
-                  </span>
-                  <span className="price-was">instead of<s>$108</s>/year</span>
-                </h3>
-              ) : (
-                <h3 className="price" key="monthly">$9<span>/month</span></h3>
-              )}
-              <ul className="plan-features">
-                <li><span className="check">✓</span>Unlimited interview practice sessions</li>
-                <li><span className="check">✓</span>In depth feedback</li>
-                <li><span className="check">✓</span>Unlimited STAR method practice</li>
-                <li><span className="check">✓</span>Unlimited Filler Words practice</li>
-                <li><span className="check">✓</span>Access to ALL future features</li>
-              </ul>
-            </div>
-            <p className="plan-tagline">Great for increasing your chances of getting hired, guaranteed speech confidence, and resume awareness</p>
+        <div className="pp-grid">
+          <div className="pp-card pp-card-monthly">
+            <div className="pp-card-art" aria-hidden="true" />
+            <div className="pp-card-dim" aria-hidden="true" />
+            <h3 className="pp-price">
+              <span className="pp-price-amount">$9</span>
+              <span className="pp-price-period">/month</span>
+              <span className="pp-price-trial">(3 day free trial)</span>
+            </h3>
+            <ul className="pp-features">
+              <li>Unlimited interview practice sessions</li>
+              <li>In depth feedback</li>
+              <li>Unlimited STAR method practice</li>
+              <li>Unlimited Filler Words practice</li>
+              <li>Access to ALL future features</li>
+            </ul>
+            <button className="pp-btn pp-btn-dark" type="button">
+              choose monthly
+            </button>
           </div>
 
+          <div className="pp-card pp-card-yearly">
+            <span className="pp-badge">75% off</span>
+            <div className="pp-card-art" aria-hidden="true" />
+            <div className="pp-card-dim" aria-hidden="true" />
+            <h3 className="pp-price">
+              <span className="pp-price-was">$108</span>
+              <span className="pp-price-amount">$27</span>
+              <span className="pp-price-period">/year</span>
+              <span className="pp-price-trial">(3 day free trial)</span>
+            </h3>
+            <ul className="pp-features">
+              <li>Unlimited interview practice sessions</li>
+              <li>In depth feedback</li>
+              <li>Unlimited STAR method practice</li>
+              <li>Unlimited Filler Words practice</li>
+              <li>Access to ALL future features</li>
+            </ul>
+            <button className="pp-btn pp-btn-navy" type="button">
+              choose yearly
+            </button>
+          </div>
         </div>
       </section>
 
@@ -586,6 +574,16 @@ function Landing() {
             </p>
           </div>
         </div>
+
+        <button
+          className="get-started testimonial-cta"
+          data-tally-open="7R0EE0"
+          data-tally-layout="modal"
+          data-tally-width="400"
+          data-tally-overlay="1"
+        >
+          Add a Testimonial to be Featured
+        </button>
       </section>
 
       {/* FOOTER */}
@@ -605,7 +603,7 @@ function Landing() {
             <a
               href="#tally-open=2EN49e&tally-layout=modal&tally-width=400&tally-overlay=1"
             >
-              Join Waitlist
+              Get Started
             </a>
           </li>
         </ul>
