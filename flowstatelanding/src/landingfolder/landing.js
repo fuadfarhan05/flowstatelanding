@@ -195,15 +195,12 @@ function Landing() {
             </li>
           </ul>
 
-          <button
+          <a
             className="nav-btn"
-            data-tally-open="2EN49e"
-            data-tally-layout="modal"
-            data-tally-width="400"
-            data-tally-overlay="1"
+            href="https://flowstatelaunch-lake.vercel.app/loginpage"
           >
             Get Started
-          </button>
+          </a>
         </nav>
       </div>
 
@@ -273,16 +270,16 @@ function Landing() {
         </div>
 
         {/* CTA BUTTONS */}
+        <p className="cta-note">
+          (FlowState is out, but only a few of you will read this. Get Started today)
+        </p>
         <div className="buttons-place">
-          <button
+          <a
             className="get-started"
-            data-tally-open="2EN49e"
-            data-tally-layout="modal"
-            data-tally-width="400"
-            data-tally-overlay="1"
+            href="https://flowstatelaunch-lake.vercel.app/loginpage"
           >
             Get Started
-          </button>
+          </a>
           <button
             className="learn-more-btn"
             onClick={() =>
@@ -601,7 +598,7 @@ function Landing() {
           </li>
           <li>
             <a
-              href="#tally-open=2EN49e&tally-layout=modal&tally-width=400&tally-overlay=1"
+              href="https://flowstatelaunch-lake.vercel.app/loginpage"
             >
               Get Started
             </a>
