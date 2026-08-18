@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./landing.css";
 
 import UploadImg from "../images/resumetointerview.webp";
@@ -127,6 +127,15 @@ function Landing() {
     };
   }, []);
 
+  // Auto-cycle which pricing card shows its "revealed" state, one at a time
+  const [activePricingCard, setActivePricingCard] = useState("monthly");
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActivePricingCard((prev) => (prev === "monthly" ? "yearly" : "monthly"));
+    }, 2800);
+    return () => clearInterval(interval);
+  }, []);
+
 
   const INTERVIEW_SEGMENTS = [
     { text: "“Uh", type: "filler" },
@@ -195,12 +204,20 @@ function Landing() {
             </li>
           </ul>
 
-          <a
-            className="nav-btn"
-            href="https://flowstatelaunch-lake.vercel.app/loginpage"
-          >
-            Get Started
-          </a>
+          <div className="nav-actions">
+            <a
+              className="nav-login"
+              href="https://flowstatelaunch-lake.vercel.app/loginpage"
+            >
+              Log in
+            </a>
+            <a
+              className="nav-btn"
+              href="https://flowstatelaunch-lake.vercel.app/signuppage"
+            >
+              Get Started
+            </a>
+          </div>
         </nav>
       </div>
 
@@ -330,7 +347,6 @@ function Landing() {
             </div>
          
           </div>
-          <p className="section-label">UNDERSTAND YOUR EXPERIENCE</p>
           <h2>Resume Based Context</h2>
           <p className="description">
             You optimized your resume to pass ATS screenings but now you actually have to talk about these experiences. We make this easy for you!
@@ -430,11 +446,10 @@ function Landing() {
 
       {/* PRICING */}
       <section className="pricing-section fade-in" id="pricing">
-        <p className="eyebrow">PRICING</p>
         <p className="pricing-subtitle">Choose the plan that works for you</p>
 
         <div className="pp-grid">
-          <div className="pp-card pp-card-monthly">
+          <div className={`pp-card pp-card-monthly${activePricingCard === "monthly" ? " pp-card-active" : ""}`}>
             <div className="pp-card-art" aria-hidden="true" />
             <div className="pp-card-dim" aria-hidden="true" />
             <h3 className="pp-price">
@@ -449,12 +464,9 @@ function Landing() {
               <li>Unlimited Filler Words practice</li>
               <li>Access to ALL future features</li>
             </ul>
-            <button className="pp-btn pp-btn-dark" type="button">
-              choose monthly
-            </button>
           </div>
 
-          <div className="pp-card pp-card-yearly">
+          <div className={`pp-card pp-card-yearly${activePricingCard === "yearly" ? " pp-card-active" : ""}`}>
             <span className="pp-badge">75% off</span>
             <div className="pp-card-art" aria-hidden="true" />
             <div className="pp-card-dim" aria-hidden="true" />
@@ -471,17 +483,20 @@ function Landing() {
               <li>Unlimited Filler Words practice</li>
               <li>Access to ALL future features</li>
             </ul>
-            <button className="pp-btn pp-btn-navy" type="button">
-              choose yearly
-            </button>
           </div>
         </div>
+
+        <a
+          className="get-started pricing-cta"
+          href="https://flowstatelaunch-lake.vercel.app/loginpage"
+        >
+          Get Started
+        </a>
       </section>
 
 
       {/* FAQ */}
 <section className="faq-section fade-in" id="faq">
-  <p className="eyebrow">FAQ</p>
   <h2 className="faq-title">Frequently Asked Questions</h2>
 
   <div className="faq-grid">

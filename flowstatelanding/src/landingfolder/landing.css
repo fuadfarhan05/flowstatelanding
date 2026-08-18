@@ -70,6 +70,26 @@
   width: 100%;
 }
 
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-login {
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.nav-login:hover {
+  opacity: 0.75;
+}
+
 .nav-btn {
   display: inline-flex;
   align-items: center;
@@ -943,6 +963,7 @@
   pointer-events: none;
 }
 
+.pp-card-active .pp-card-dim,
 .pp-card:hover .pp-card-dim {
   background: rgba(4, 6, 16, 0.82);
 }
@@ -1015,6 +1036,8 @@
   background-image: linear-gradient(to right, #ffffff 50%, rgba(11, 16, 48, 0.6) 50%);
 }
 
+.pp-card-active .pp-price-amount,
+.pp-card-active .pp-price-period,
 .pp-card:hover .pp-price-amount,
 .pp-card:hover .pp-price-period {
   background-position: 0% 0;
@@ -1029,6 +1052,7 @@
   transition: color 0.5s ease;
 }
 
+.pp-card-active .pp-price-trial,
 .pp-card:hover .pp-price-trial {
   color: #ffffff;
 }
@@ -1050,7 +1074,7 @@
   top: 132px;
   left: 24px;
   right: 24px;
-  bottom: 76px;
+  bottom: 24px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1064,6 +1088,7 @@
   transition: opacity 0.4s ease;
 }
 
+.pp-card-active .pp-features,
 .pp-card:hover .pp-features {
   opacity: 1;
 }
@@ -1091,6 +1116,7 @@
   background: #ffffff;
 }
 
+.pp-card-active .pp-features li,
 .pp-card:hover .pp-features li {
   opacity: 1;
   transform: translateY(0);
@@ -1102,32 +1128,9 @@
 .pp-features li:nth-child(4) { transition-delay: 0.2s; }
 .pp-features li:nth-child(5) { transition-delay: 0.25s; }
 
-.pp-btn {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  padding: 14px;
-  border-radius: 999px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  border: none;
-  transition: transform 0.15s ease, opacity 0.15s ease;
-}
-
-.pp-btn:hover {
-  transform: translateY(-1px);
-  opacity: 0.92;
-}
-
-.pp-btn-dark {
-  background: #14172b;
-  color: #ffffff;
-}
-
-.pp-btn-navy {
-  background: #0a1550;
-  color: #ffffff;
+.pricing-cta {
+  display: inline-flex;
+  margin: 40px auto 0;
 }
 
 @media (max-width: 560px) {
