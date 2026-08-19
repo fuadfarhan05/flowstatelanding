@@ -207,13 +207,13 @@ function Landing() {
           <div className="nav-actions">
             <a
               className="nav-login"
-              href="https://flowstatelaunch-lake.vercel.app/loginpage"
+              href="https://www.withflowstate.app/loginpage"
             >
               Log in
             </a>
             <a
               className="nav-btn"
-              href="https://flowstatelaunch-lake.vercel.app/signuppage"
+              href="https://www.withflowstate.app/signuppage"
             >
               Get Started
             </a>
@@ -293,7 +293,7 @@ function Landing() {
         <div className="buttons-place">
           <a
             className="get-started"
-            href="https://flowstatelaunch-lake.vercel.app/loginpage"
+            href="https://www.withflowstate.app/loginpage"
           >
             Get Started
           </a>
@@ -488,7 +488,7 @@ function Landing() {
 
         <a
           className="get-started pricing-cta"
-          href="https://flowstatelaunch-lake.vercel.app/loginpage"
+          href="https://www.withflowstate.app/loginpage"
         >
           Get Started
         </a>
@@ -613,7 +613,7 @@ function Landing() {
           </li>
           <li>
             <a
-              href="https://flowstatelaunch-lake.vercel.app/loginpage"
+              href="https://www.withflowstate.app/loginpage"
             >
               Get Started
             </a>
