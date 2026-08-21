@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./landing.css";
 
 import UploadImg from "../images/resumetointerview.webp";
@@ -134,6 +134,49 @@ function Landing() {
       setActivePricingCard((prev) => (prev === "monthly" ? "yearly" : "monthly"));
     }, 2800);
     return () => clearInterval(interval);
+  }, []);
+
+  const TESTIMONIALS = [
+    {
+      quote: `I would always struggle with my interviews until I realized that I wasn't preparing the right way. No matter how "prepared" I felt there were moments in real interviews where I would get startled by a question I wasn't expecting. The best performance comes from consistent and challenging practice but it's not easy to challenge yourself when preparing alone. With FlowState, we solved this EXACT issue.`,
+      name: "Fuad Farhan",
+      role: "Founder",
+      stars: null,
+      founder: true,
+    },
+    {
+      quote: `FlowState was never just a project for Fuad and I, it was personal. We both experienced how unpredictable the job market can be, where even landing an internship feels uncertain. We'd quiz each other, run mock interviews, and review resumes, but it never matched the pressure of the real thing. We knew there had to be a better way. That's why we built FlowState.`,
+      name: "Rayat Chowdhury",
+      role: "Founder",
+      stars: null,
+      founder: true,
+    },
+    {
+      quote: `Flowstate helped build my confidence when speaking, usually I stutter in my speech in interviews because I overthink and get nervous but practicing with flowstate gave me a safe space for my communication skills. It gives you a safe space so you're not judged when talking which can lower your confidence. Also became less afraid of making mistakes and more confident in my ability to communicate clearly, especially in situations like interviews. If you haven't tried this, I absolutely recommend to give it a try. It's affordable too. Nowadays it's hard to find a software that helps with speaking skills but this is legit and simple never too complicated on how to use the website.`,
+      name: "Fahad",
+      role: null,
+      stars: 5,
+      founder: false,
+    },
+  ];
+
+  // Detect which testimonial quotes are taller than the fixed card can show,
+  // so the "More" button only appears where text actually gets cut off.
+  const testimonialQuoteRefs = useRef([]);
+  const [truncatedTestimonials, setTruncatedTestimonials] = useState([]);
+  const [activeTestimonial, setActiveTestimonial] = useState(null);
+
+  useEffect(() => {
+    const measure = () => {
+      setTruncatedTestimonials(
+        testimonialQuoteRefs.current.map(
+          (el) => !!el && el.scrollHeight > el.clientHeight + 1
+        )
+      );
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
   }, []);
 
 
@@ -561,29 +604,37 @@ function Landing() {
         <p className="eyebrow">TESTIMONIALS</p>
 
         <div className="testimonial-grid">
-          <div className="testimonial-card">
-            <p>
-              I would always struggle with my interviews until I realized that I wasn't preparing the right way. 
-              No matter how "prepared" I felt there were moments in real interviews where I would get startled by a question I wasn't expecting.
-              The best performance comes from consistent and challenging practice but it's not easy to challenge yourself when preparing alone. With 
-              FlowState, we solved this EXACT issue.
-              <br />
-              <br />– Fuad <strong>(Founder)</strong>
-            </p>
-          </div>
-
-          <div className="testimonial-card">
-            <p>
-              FlowState was never just a project for Fuad and I, it was
-              personal. We both experienced how unpredictable the job market can
-              be, where even landing an internship feels uncertain. We’d quiz
-              each other, run mock interviews, and review resumes, but it never
-              matched the pressure of the real thing. We knew there had to be a
-              better way. That’s why we built FlowState.
-              <br />
-              <br />– Rayat <strong>(Co-Founder)</strong>
-            </p>
-          </div>
+          {TESTIMONIALS.map((t, i) => (
+            <div
+              className={`testimonial-card${t.founder ? " testimonial-card--founder" : ""}`}
+              key={t.name}
+            >
+              <div className="testimonial-header">
+                <p className="testimonial-name">{t.name}</p>
+                {t.role && <span className="testimonial-role">{t.role}</span>}
+              </div>
+              {t.stars && (
+                <p className="stars" aria-label={`${t.stars} out of 5 stars`}>
+                  {"★".repeat(t.stars)}
+                </p>
+              )}
+              <p
+                className="testimonial-quote"
+                ref={(el) => (testimonialQuoteRefs.current[i] = el)}
+              >
+                {t.quote}
+              </p>
+              {truncatedTestimonials[i] && (
+                <button
+                  type="button"
+                  className="testimonial-more"
+                  onClick={() => setActiveTestimonial(i)}
+                >
+                  Continue Reading
+                </button>
+              )}
+            </div>
+          ))}
         </div>
 
         <button
@@ -596,6 +647,44 @@ function Landing() {
           Add a Testimonial to be Featured
         </button>
       </section>
+
+      {activeTestimonial !== null && (
+        <div
+          className="testimonial-modal-overlay"
+          onClick={() => setActiveTestimonial(null)}
+        >
+          <div
+            className="testimonial-modal-card"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="testimonial-modal-close"
+              aria-label="Close"
+              onClick={() => setActiveTestimonial(null)}
+            >
+              ×
+            </button>
+            <div className="testimonial-header">
+              <p className="testimonial-name">{TESTIMONIALS[activeTestimonial].name}</p>
+              {TESTIMONIALS[activeTestimonial].role && (
+                <span className="testimonial-role">
+                  {TESTIMONIALS[activeTestimonial].role}
+                </span>
+              )}
+            </div>
+            {TESTIMONIALS[activeTestimonial].stars && (
+              <p
+                className="stars"
+                aria-label={`${TESTIMONIALS[activeTestimonial].stars} out of 5 stars`}
+              >
+                {"★".repeat(TESTIMONIALS[activeTestimonial].stars)}
+              </p>
+            )}
+            <p>{TESTIMONIALS[activeTestimonial].quote}</p>
+          </div>
+        </div>
+      )}
 
       {/* FOOTER */}
       <footer className="footer">
