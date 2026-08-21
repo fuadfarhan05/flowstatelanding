@@ -224,8 +224,7 @@ function Landing() {
       {/* INTERVIEW HERO */}
       <section className="interview-hero">
         <h1 className="interview-hero-title">
-          AI can't do your interviews for you,<br />
-          <span className="interview-hero-subtitle">but we can help you do them by YOURSELF</span>
+          The interview starts long before <span className="interview-hero-subtitle">the interview</span>
         </h1>
 
         <div className="interview-demo-container">

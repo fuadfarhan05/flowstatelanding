@@ -2635,13 +2635,13 @@ details.faq-item[open] p {
 
 .interview-hero-subtitle {
   font-family: 'Raleway', sans-serif;
-  font-size: clamp(1.1rem, 2.8vw, 2rem);
   font-weight: 600;
   background: linear-gradient(90deg, #D1F0FF, #5E7BFF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
 
 /* ─── DEMO CONTAINER ─── */
 .interview-demo-container {
@@ -2828,10 +2828,6 @@ details.faq-item[open] p {
 
   .interview-hero-title {
     font-size: clamp(1.5rem, 6vw, 2rem);
-  }
-
-  .interview-hero-subtitle {
-    font-size: clamp(1rem, 4.5vw, 1.4rem);
   }
 
   .interview-demo-container {
