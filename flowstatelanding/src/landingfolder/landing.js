@@ -45,7 +45,7 @@ function Landing() {
   // Staggered child reveals for grid sections
   useEffect(() => {
     const grids = document.querySelectorAll(
-      ".testimonial-grid, .speech-grid, .pp-grid"
+      ".speech-grid, .pp-grid"
     );
 
     grids.forEach((grid) => {
@@ -94,7 +94,7 @@ function Landing() {
   useEffect(() => {
     const TILT_MAX = 7;
     const cards = document.querySelectorAll(
-      ".grade-card, .feature-card, .speech-card, .testimonial-card"
+      ".grade-card, .feature-card, .speech-card"
     );
 
     const onMove = (e) => {
@@ -154,6 +154,13 @@ function Landing() {
     {
       quote: `Flowstate helped build my confidence when speaking, usually I stutter in my speech in interviews because I overthink and get nervous but practicing with flowstate gave me a safe space for my communication skills. It gives you a safe space so you're not judged when talking which can lower your confidence. Also became less afraid of making mistakes and more confident in my ability to communicate clearly, especially in situations like interviews. If you haven't tried this, I absolutely recommend to give it a try. It's affordable too. Nowadays it's hard to find a software that helps with speaking skills but this is legit and simple never too complicated on how to use the website.`,
       name: "Fahad",
+      role: null,
+      stars: 5,
+      founder: false,
+    },
+    {
+      quote: `Flowstate really helped me understand how I come across in interviews. What I liked most was how it analyzed my answers and showed me what I was communicating well and what wasn't really getting across. Being able to look back at the transcript of my exact words and see which parts were strong and which parts I needed to work on made the feedback feel really specific and useful.`,
+      name: "Wadood",
       role: null,
       stars: 5,
       founder: false,
@@ -603,38 +610,48 @@ function Landing() {
       <section className="testimonials fade-in">
         <p className="eyebrow">TESTIMONIALS</p>
 
-        <div className="testimonial-grid">
-          {TESTIMONIALS.map((t, i) => (
-            <div
-              className={`testimonial-card${t.founder ? " testimonial-card--founder" : ""}`}
-              key={t.name}
-            >
-              <div className="testimonial-header">
-                <p className="testimonial-name">{t.name}</p>
-                {t.role && <span className="testimonial-role">{t.role}</span>}
-              </div>
-              {t.stars && (
-                <p className="stars" aria-label={`${t.stars} out of 5 stars`}>
-                  {"★".repeat(t.stars)}
-                </p>
-              )}
-              <p
-                className="testimonial-quote"
-                ref={(el) => (testimonialQuoteRefs.current[i] = el)}
-              >
-                {t.quote}
-              </p>
-              {truncatedTestimonials[i] && (
-                <button
-                  type="button"
-                  className="testimonial-more"
-                  onClick={() => setActiveTestimonial(i)}
+        <div className="testimonial-marquee">
+          <div className="testimonial-track">
+            {[...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => {
+              const realIndex = i % TESTIMONIALS.length;
+              const isDuplicate = i >= TESTIMONIALS.length;
+              return (
+                <div
+                  className={`testimonial-card${t.founder ? " testimonial-card--founder" : ""}`}
+                  key={`${t.name}-${i}`}
+                  aria-hidden={isDuplicate ? "true" : undefined}
                 >
-                  Continue Reading
-                </button>
-              )}
-            </div>
-          ))}
+                  <div className="testimonial-header">
+                    <p className="testimonial-name">{t.name}</p>
+                    {t.role && <span className="testimonial-role">{t.role}</span>}
+                  </div>
+                  {t.stars && (
+                    <p className="stars" aria-label={`${t.stars} out of 5 stars`}>
+                      {"★".repeat(t.stars)}
+                    </p>
+                  )}
+                  <p
+                    className="testimonial-quote"
+                    ref={(el) => {
+                      if (!isDuplicate) testimonialQuoteRefs.current[realIndex] = el;
+                    }}
+                  >
+                    {t.quote}
+                  </p>
+                  {truncatedTestimonials[realIndex] && (
+                    <button
+                      type="button"
+                      className="testimonial-more"
+                      tabIndex={isDuplicate ? -1 : 0}
+                      onClick={() => setActiveTestimonial(realIndex)}
+                    >
+                      Continue Reading
+                    </button>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         <button
