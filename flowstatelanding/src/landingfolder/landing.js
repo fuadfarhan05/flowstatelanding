@@ -127,6 +127,8 @@ function Landing() {
     };
   }, []);
 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   // Auto-cycle which pricing card shows its "revealed" state, one at a time
   const [activePricingCard, setActivePricingCard] = useState("monthly");
   useEffect(() => {
@@ -227,11 +229,12 @@ function Landing() {
             </div>
           </div>
 
-          <ul className="nav-links">
+          <ul className={`nav-links${mobileMenuOpen ? " nav-links--open" : ""}`}>
             <li>
               <a
                 href="#tally-open=7R0EE0&tally-layout=modal&tally-width=400&tally-overlay=1"
                 style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}
+                onClick={() => setMobileMenuOpen(false)}
               >
                 Support Us
               </a>
@@ -240,6 +243,7 @@ function Landing() {
               <a
                 href="#pricing"
                 style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}
+                onClick={() => setMobileMenuOpen(false)}
               >
                 Pricing
               </a>
@@ -248,6 +252,7 @@ function Landing() {
               <a
                 href="#faq"
                 style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}
+                onClick={() => setMobileMenuOpen(false)}
               >
                 FAQ
               </a>
@@ -255,6 +260,17 @@ function Landing() {
           </ul>
 
           <div className="nav-actions">
+            <button
+              type="button"
+              className={`nav-hamburger${mobileMenuOpen ? " nav-hamburger--open" : ""}`}
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+              onClick={() => setMobileMenuOpen((open) => !open)}
+            >
+              <span />
+              <span />
+              <span />
+            </button>
             <a
               className="nav-login"
               href="https://www.withflowstate.app/loginpage"
