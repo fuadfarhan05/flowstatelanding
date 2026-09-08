@@ -129,6 +129,44 @@ function Landing() {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Discount popup — appears 1.5s after landing
+  const [showOfferPopup, setShowOfferPopup] = useState(false);
+  const [focusChoice, setFocusChoice] = useState(null);
+  const [collapseWidths, setCollapseWidths] = useState({});
+  const optionRefs = useRef({});
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowOfferPopup(true), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const closeOfferPopup = () => {
+    setShowOfferPopup(false);
+  };
+
+  const FOCUS_OPTIONS = [
+    "Resume-based questions",
+    "Handling curveball questions",
+    "General confidence & nerves",
+  ];
+
+  // Measure each pill's real current width first (so the collapse animates
+  // from its true size instead of an arbitrary starting point, which is what
+  // made it look like it was snapping shut) — then let that paint before
+  // triggering the actual collapse on the next frame.
+  const handleFocusSelect = (option) => {
+    const widths = {};
+    FOCUS_OPTIONS.forEach((opt) => {
+      if (opt !== option && optionRefs.current[opt]) {
+        widths[opt] = optionRefs.current[opt].getBoundingClientRect().width;
+      }
+    });
+    setCollapseWidths(widths);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setFocusChoice(option));
+    });
+  };
+
   // Auto-cycle which pricing card shows its "revealed" state, one at a time
   const [activePricingCard, setActivePricingCard] = useState("monthly");
   useEffect(() => {
@@ -219,6 +257,74 @@ function Landing() {
       <div className="glow-orb glow-orb-2" />
       <div className="glow-orb glow-orb-3" />
 
+      {/* DISCOUNT OFFER POPUP */}
+      {showOfferPopup && (
+        <div className="offer-popup-overlay" onClick={closeOfferPopup}>
+          <div
+            className="offer-popup-card"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="offer-popup-close"
+              aria-label="Close"
+              onClick={closeOfferPopup}
+            >
+              ×
+            </button>
+
+            <p className="offer-popup-percent-row">
+              <span className="offer-popup-percent">75%</span>
+              <span className="offer-popup-off">off</span>
+            </p>
+            <p className="offer-popup-subtitle">
+              on the <strong>yearly</strong> plan
+            </p>
+            <p className="offer-popup-body">we want to reward your commitment.</p>
+
+            <p className="offer-popup-question">
+              What's your main focus for interviews?
+            </p>
+            <div className="offer-popup-options">
+              {FOCUS_OPTIONS.map((option) => {
+                const isSelected = focusChoice === option;
+                const isCollapsing = focusChoice && !isSelected;
+                return (
+                  <button
+                    type="button"
+                    key={option}
+                    ref={(el) => (optionRefs.current[option] = el)}
+                    className={`offer-popup-option${
+                      isSelected
+                        ? " offer-popup-option--selected"
+                        : isCollapsing
+                        ? " offer-popup-option--collapsed"
+                        : ""
+                    }`}
+                    style={
+                      collapseWidths[option] != null && !isSelected
+                        ? { width: isCollapsing ? 0 : collapseWidths[option] }
+                        : undefined
+                    }
+                    onClick={() => handleFocusSelect(option)}
+                  >
+                    {option}
+                  </button>
+                );
+              })}
+            </div>
+
+            <a
+              className={`offer-popup-claim${focusChoice ? " offer-popup-claim--pulse" : ""}`}
+              href="https://www.withflowstate.app/signuppage"
+              onClick={closeOfferPopup}
+            >
+              claim offer
+            </a>
+          </div>
+        </div>
+      )}
+
       {/* NAVBAR */}
       <div className="navbar">
         <nav className="glass-navbar">
@@ -290,7 +396,26 @@ function Landing() {
       {/* INTERVIEW HERO */}
       <section className="interview-hero">
         <h1 className="interview-hero-title">
-          The interview starts long before <span className="interview-hero-subtitle">the interview</span>
+          <span className="hero-highlight-blue">ACE</span> your interviews instead of being
+          <br />
+          <span className="hero-highlight-red">embarrassed</span> for preparing{" "}
+          <span className="hero-underline-wrap">
+            last minute
+            <svg
+              className="hero-underline-svg"
+              viewBox="0 0 200 16"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M3,10 C20,3 35,14 52,7 C68,1 80,13 98,8 C114,4 128,12 145,6 C158,2 170,11 184,7 C190,5 194,7 197,6"
+                fill="none"
+                stroke="#ef4444"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
+            </svg>
+          </span>
         </h1>
 
         <div className="interview-demo-container">
@@ -352,9 +477,6 @@ function Landing() {
         </div>
 
         {/* CTA BUTTONS */}
-        <p className="cta-note">
-          (FlowState is out, but only a few of you will read this. Get Started today)
-        </p>
         <div className="buttons-place">
           <a
             className="get-started"
