@@ -642,7 +642,7 @@ function Landing() {
             <h3 className="pp-price">
               <span className="pp-price-amount">$9</span>
               <span className="pp-price-period">/month</span>
-              <span className="pp-price-trial">(3 day free trial)</span>
+              <span className="pp-price-trial">3 day free trial, CANCEL ANYTIME!</span>
             </h3>
             <ul className="pp-features">
               <li>Unlimited interview practice sessions</li>
@@ -661,7 +661,7 @@ function Landing() {
               <span className="pp-price-was">$108</span>
               <span className="pp-price-amount">$27</span>
               <span className="pp-price-period">/year</span>
-              <span className="pp-price-trial">(3 day free trial)</span>
+              <span className="pp-price-trial">3 day free trial, CANCEL ANYTIME!</span>
             </h3>
             <ul className="pp-features">
               <li>Unlimited interview practice sessions</li>
