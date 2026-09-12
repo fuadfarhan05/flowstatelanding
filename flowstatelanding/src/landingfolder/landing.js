@@ -195,6 +195,7 @@ function Landing() {
       quote: `Flowstate helped build my confidence when speaking, usually I stutter in my speech in interviews because I overthink and get nervous but practicing with flowstate gave me a safe space for my communication skills. It gives you a safe space so you're not judged when talking which can lower your confidence. Also became less afraid of making mistakes and more confident in my ability to communicate clearly, especially in situations like interviews. If you haven't tried this, I absolutely recommend to give it a try. It's affordable too. Nowadays it's hard to find a software that helps with speaking skills but this is legit and simple never too complicated on how to use the website.`,
       name: "Fahad",
       role: null,
+      position: "Offered a position as a Sales Professional",
       stars: 5,
       founder: false,
     },
@@ -202,29 +203,21 @@ function Landing() {
       quote: `Flowstate really helped me understand how I come across in interviews. What I liked most was how it analyzed my answers and showed me what I was communicating well and what wasn't really getting across. Being able to look back at the transcript of my exact words and see which parts were strong and which parts I needed to work on made the feedback feel really specific and useful.`,
       name: "Wadood",
       role: null,
+      position: "Offered a position as a Lead Software Engineer",
+      stars: 5,
+      founder: false,
+    },
+    {
+      quote: `I didn't want to give Flowstate a chance as I didn't see it as a program for me, given I'm in the medical field and I thought this was more towards CS. Nevertheless, I had a job interview coming up for a position as an EMT. I have my certifications and referrals, but I'm really bad at interviewing and speaking. I was able to use Flowstate to improve my speaking and my interviewing skills, which helped me land the job.`,
+      name: "Zidane",
+      role: null,
+      position: "Offered a position as an Emergency Medical Technician",
       stars: 5,
       founder: false,
     },
   ];
 
-  // Detect which testimonial quotes are taller than the fixed card can show,
-  // so the "More" button only appears where text actually gets cut off.
-  const testimonialQuoteRefs = useRef([]);
-  const [truncatedTestimonials, setTruncatedTestimonials] = useState([]);
   const [activeTestimonial, setActiveTestimonial] = useState(null);
-
-  useEffect(() => {
-    const measure = () => {
-      setTruncatedTestimonials(
-        testimonialQuoteRefs.current.map(
-          (el) => !!el && el.scrollHeight > el.clientHeight + 1
-        )
-      );
-    };
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, []);
 
 
   const INTERVIEW_SEGMENTS = [
@@ -515,6 +508,7 @@ function Landing() {
             className="grade-img"
             src={grade}
             alt="FlowState grading"
+            loading="lazy"
           />
         </div>
       </div>
@@ -530,6 +524,7 @@ function Landing() {
                 className="feature-img feature-img-upload"
                 src={UploadImg}
                 alt="Resume upload"
+                loading="lazy"
               />
             </div>
          
@@ -554,7 +549,7 @@ function Landing() {
 
             {/* Filler Words image + UI Mockup */}
             <div className="filler-media-wrap">
-              <img src={FillerWordsImg} alt="Filler words" className="filler-bg-img" />
+              <img src={FillerWordsImg} alt="Filler words" className="filler-bg-img" loading="lazy" />
               <div className="filler-preview filler-preview--overlay">
                 <p className="filler-preview-title">LIVE SESSION STATS</p>
                 <div className="filler-stats-row">
@@ -593,7 +588,7 @@ function Landing() {
 
             {/* STAR image + UI Mockup */}
             <div className="star-media-wrap">
-              <img src={StarMethodImg} alt="STAR method" className="star-bg-img" />
+              <img src={StarMethodImg} alt="STAR method" className="star-bg-img" loading="lazy" />
               <div className="star-preview star-preview--overlay">
                 <p className="star-preview-title">STRUCTURE</p>
                 <div className="star-preview-card">
@@ -763,29 +758,23 @@ function Landing() {
                     <p className="testimonial-name">{t.name}</p>
                     {t.role && <span className="testimonial-role">{t.role}</span>}
                   </div>
+                  {t.position && (
+                    <p className="testimonial-position">{t.position}</p>
+                  )}
                   {t.stars && (
                     <p className="stars" aria-label={`${t.stars} out of 5 stars`}>
                       {"★".repeat(t.stars)}
                     </p>
                   )}
-                  <p
-                    className="testimonial-quote"
-                    ref={(el) => {
-                      if (!isDuplicate) testimonialQuoteRefs.current[realIndex] = el;
-                    }}
+                  <p className="testimonial-quote">{t.quote}</p>
+                  <button
+                    type="button"
+                    className="testimonial-more"
+                    tabIndex={isDuplicate ? -1 : 0}
+                    onClick={() => setActiveTestimonial(realIndex)}
                   >
-                    {t.quote}
-                  </p>
-                  {truncatedTestimonials[realIndex] && (
-                    <button
-                      type="button"
-                      className="testimonial-more"
-                      tabIndex={isDuplicate ? -1 : 0}
-                      onClick={() => setActiveTestimonial(realIndex)}
-                    >
-                      Continue Reading
-                    </button>
-                  )}
+                    Continue Reading
+                  </button>
                 </div>
               );
             })}
@@ -828,6 +817,11 @@ function Landing() {
                 </span>
               )}
             </div>
+            {TESTIMONIALS[activeTestimonial].position && (
+              <p className="testimonial-position">
+                {TESTIMONIALS[activeTestimonial].position}
+              </p>
+            )}
             {TESTIMONIALS[activeTestimonial].stars && (
               <p
                 className="stars"
@@ -844,7 +838,7 @@ function Landing() {
       {/* FOOTER */}
       <footer className="footer">
         <div className="footer-brand">
-          <img src={logo} alt="flowstate-logo" />
+          <img src={logo} alt="flowstate-logo" loading="lazy" />
           <span>FlowState</span>
         </div>
         <ul className="footer-links">

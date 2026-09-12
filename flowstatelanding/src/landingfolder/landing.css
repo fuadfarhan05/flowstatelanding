@@ -951,6 +951,13 @@
   border-radius: 999px;
 }
 
+.testimonial-position {
+  margin: -10px 0 6px;
+  color: #ffc531;
+  font-size: 14px;
+  font-weight: 700;
+}
+
 .testimonial-quote {
   flex: 1;
   min-height: 0;
@@ -1256,7 +1263,7 @@
   color: #ffc531;
   letter-spacing: 4px;
   font-size: 18px;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
 }
 
 .background {
@@ -1355,13 +1362,17 @@
   top: 28px;
   right: 24px;
   z-index: 2;
-  background: #ffffff;
-  color: #0a1550;
+  background: linear-gradient(135deg, #ffe9a8 0%, #f2b93f 50%, #c9971f 100%);
+  color: #1a1200;
   font-size: 12px;
   font-weight: 800;
   padding: 6px 14px;
   border-radius: 999px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1.5px solid #fff3d6;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.25),
+    0 0 14px rgba(242, 185, 63, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 .pp-price {
