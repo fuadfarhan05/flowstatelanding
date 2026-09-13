@@ -215,6 +215,14 @@ function Landing() {
       stars: 5,
       founder: false,
     },
+    {
+      quote: `FlowState is an amazing product. The practice is rigirous and it will definetly help you. Definetly check it out if you have an interview coming up`,
+      name: "Ayman Ahsan",
+      role: null,
+      position: "Offered a position as a Lead Software Engineer",
+      stars: 5,
+      founder: false,
+    },
   ];
 
   const [activeTestimonial, setActiveTestimonial] = useState(null);
