@@ -1,0 +1,28 @@
+:root{
+  /* The FlowState app background: a faint blue grid over navy, with two
+     soft corner glows (blue top-left, teal bottom-right). Used on
+     /create, /archives and every full-bleed app page. */
+  --bg-grid-line:rgba(142,170,255,.11);
+  --bg-grid-line-auth:rgba(59,130,246,.13);
+  --bg-glow-blue:rgba(47,107,255,.20);
+  --bg-glow-teal:rgba(30,200,177,.16);
+}
+
+/* Drop-in helpers consumers can apply directly. */
+.fs-bg-app{
+  background-color:var(--bg-app);
+  background-image:
+    linear-gradient(var(--bg-grid-line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--bg-grid-line) 1px,transparent 1px),
+    radial-gradient(circle at 18% 10%,var(--bg-glow-blue),transparent 44%),
+    radial-gradient(circle at 82% 88%,var(--bg-glow-teal),transparent 42%);
+  background-size:var(--grid-cell) var(--grid-cell),var(--grid-cell) var(--grid-cell),auto,auto;
+}
+
+.fs-bg-grid{
+  background-color:var(--fs-navy-950);
+  background-image:
+    linear-gradient(var(--bg-grid-line-auth) 1px,transparent 1px),
+    linear-gradient(90deg,var(--bg-grid-line-auth) 1px,transparent 1px);
+  background-size:var(--grid-cell-auth) var(--grid-cell-auth);
+}

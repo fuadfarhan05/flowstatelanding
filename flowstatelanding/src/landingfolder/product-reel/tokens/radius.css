@@ -1,0 +1,18 @@
+:root{
+  --r-6:6px;
+  --r-8:8px;
+  --r-10:10px;
+  --r-12:12px;   /* input, small pill */
+  --r-14:14px;
+  --r-15:15px;   /* THE button + nav-item radius */
+  --r-16:16px;
+  --r-18:18px;
+  --r-20:20px;
+  --r-22:22px;   /* glass auth card */
+  --r-24:24px;
+  --r-28:28px;   /* sidebar + panel shell */
+  --r-36:36px;   /* hero / stats card */
+  --r-80:80px;   /* drill squircle */
+  --r-full:999px;
+  --r-circle:50%;
+}

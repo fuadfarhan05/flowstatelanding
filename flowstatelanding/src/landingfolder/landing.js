@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "./landing.css";
+import "./product-reel/styles.css";
+import { ProductReel } from "./product-reel/onboarding/ProductReel.jsx";
 
 import UploadImg from "../images/resumetointerview.webp";
 import FillerWordsImg from "../images/fillerwordnew.webp";
@@ -129,52 +131,27 @@ function Landing() {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Discount popup — appears 1.5s after landing
-  const [showOfferPopup, setShowOfferPopup] = useState(false);
-  const [focusChoice, setFocusChoice] = useState(null);
-  const [collapseWidths, setCollapseWidths] = useState({});
-  const optionRefs = useRef({});
+  // Monthly/yearly pricing toggle
+  const [billingPeriod, setBillingPeriod] = useState("monthly");
 
+  // Animated "price drop" from $108 to $27 each time Yearly is selected
+  const [yearlyPriceDisplay, setYearlyPriceDisplay] = useState(27);
   useEffect(() => {
-    const timer = setTimeout(() => setShowOfferPopup(true), 1500);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const closeOfferPopup = () => {
-    setShowOfferPopup(false);
-  };
-
-  const FOCUS_OPTIONS = [
-    "Resume-based questions",
-    "Handling curveball questions",
-    "General confidence & nerves",
-  ];
-
-  // Measure each pill's real current width first (so the collapse animates
-  // from its true size instead of an arbitrary starting point, which is what
-  // made it look like it was snapping shut) — then let that paint before
-  // triggering the actual collapse on the next frame.
-  const handleFocusSelect = (option) => {
-    const widths = {};
-    FOCUS_OPTIONS.forEach((opt) => {
-      if (opt !== option && optionRefs.current[opt]) {
-        widths[opt] = optionRefs.current[opt].getBoundingClientRect().width;
-      }
-    });
-    setCollapseWidths(widths);
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => setFocusChoice(option));
-    });
-  };
-
-  // Auto-cycle which pricing card shows its "revealed" state, one at a time
-  const [activePricingCard, setActivePricingCard] = useState("monthly");
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActivePricingCard((prev) => (prev === "monthly" ? "yearly" : "monthly"));
-    }, 2800);
-    return () => clearInterval(interval);
-  }, []);
+    if (billingPeriod !== "yearly") return;
+    const from = 108;
+    const to = 27;
+    const duration = 700;
+    const start = performance.now();
+    let frame;
+    const tick = (now) => {
+      const progress = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setYearlyPriceDisplay(Math.round(from - (from - to) * eased));
+      if (progress < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [billingPeriod]);
 
   const TESTIMONIALS = [
     {
@@ -227,104 +204,12 @@ function Landing() {
 
   const [activeTestimonial, setActiveTestimonial] = useState(null);
 
-
-  const INTERVIEW_SEGMENTS = [
-    { text: "“Uh", type: "filler" },
-    { text: ", a challenge that I faced at my current job is ", type: "structure" },
-    { text: "um", type: "filler" },
-    { text: ". ", type: "normal" },
-    { text: "Pretty much", type: "filler" },
-    { text: ", so in ", type: "normal" },
-    { text: "the beginning of college there was this teacher which was the reason for getting this job", type: "drift" },
-    { text: " but ", type: "normal" },
-    { text: "uh", type: "filler" },
-    { text: " yeah so fast forward to ", type: "normal" },
-    { text: "uh", type: "filler" },
-    { text: " now the challenge is ", type: "normal" },
-    { text: "like", type: "filler" },
-    { text: " I ", type: "normal" },
-    { text: "like", type: "filler" },
-    { text: " struggle ", type: "normal" },
-    { text: "pretty much", type: "filler" },
-    { text: " with ", type: "normal" },
-    { text: "um", type: "filler" },
-    { text: " communication within the team”", type: "structure" },
-  ];
-
   return (
     <div className="background">
       {/* AMBIENT GLOW ORBS */}
       <div className="glow-orb glow-orb-1" />
       <div className="glow-orb glow-orb-2" />
       <div className="glow-orb glow-orb-3" />
-
-      {/* DISCOUNT OFFER POPUP */}
-      {showOfferPopup && (
-        <div className="offer-popup-overlay" onClick={closeOfferPopup}>
-          <div
-            className="offer-popup-card"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              type="button"
-              className="offer-popup-close"
-              aria-label="Close"
-              onClick={closeOfferPopup}
-            >
-              ×
-            </button>
-
-            <p className="offer-popup-percent-row">
-              <span className="offer-popup-percent">75%</span>
-              <span className="offer-popup-off">off</span>
-            </p>
-            <p className="offer-popup-subtitle">
-              on the <strong>yearly</strong> plan
-            </p>
-            <p className="offer-popup-body">we want to reward your commitment.</p>
-
-            <p className="offer-popup-question">
-              What's your main focus for interviews?
-            </p>
-            <div className="offer-popup-options">
-              {FOCUS_OPTIONS.map((option) => {
-                const isSelected = focusChoice === option;
-                const isCollapsing = focusChoice && !isSelected;
-                return (
-                  <button
-                    type="button"
-                    key={option}
-                    ref={(el) => (optionRefs.current[option] = el)}
-                    className={`offer-popup-option${
-                      isSelected
-                        ? " offer-popup-option--selected"
-                        : isCollapsing
-                        ? " offer-popup-option--collapsed"
-                        : ""
-                    }`}
-                    style={
-                      collapseWidths[option] != null && !isSelected
-                        ? { width: isCollapsing ? 0 : collapseWidths[option] }
-                        : undefined
-                    }
-                    onClick={() => handleFocusSelect(option)}
-                  >
-                    {option}
-                  </button>
-                );
-              })}
-            </div>
-
-            <a
-              className={`offer-popup-claim${focusChoice ? " offer-popup-claim--pulse" : ""}`}
-              href="https://www.withflowstate.app/signuppage"
-              onClick={closeOfferPopup}
-            >
-              claim offer
-            </a>
-          </div>
-        </div>
-      )}
 
       {/* NAVBAR */}
       <div className="navbar">
@@ -352,7 +237,7 @@ function Landing() {
                 style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Pricing
+                Features
               </a>
             </li>
             <li>
@@ -397,113 +282,28 @@ function Landing() {
       {/* INTERVIEW HERO */}
       <section className="interview-hero">
         <h1 className="interview-hero-title">
-          <span className="hero-highlight-blue">ACE</span> your interviews instead of being
+          Appear more <strong style={{ fontWeight: 900 }}>QUALIFIED</strong> with the work experiences
           <br />
-          <span className="hero-highlight-red">embarrassed</span> for preparing{" "}
-          <span className="hero-underline-wrap">
-            last minute
-            <svg
-              className="hero-underline-svg"
-              viewBox="0 0 200 16"
-              preserveAspectRatio="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M3,10 C20,3 35,14 52,7 C68,1 80,13 98,8 C114,4 128,12 145,6 C158,2 170,11 184,7 C190,5 194,7 197,6"
-                fill="none"
-                stroke="#ef4444"
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
-            </svg>
-          </span>
+          you are too <strong style={{ fontWeight: 900, color: "#ef4444" }}>SHY</strong> to talk about
         </h1>
 
-        <div className="interview-demo-container">
-          {/* Left: Teleprompter */}
-          <div className="teleprompter-wrapper">
-            <div className="teleprompter-inner">
-              {/* Render text twice for seamless loop */}
-              {[0, 1].map((copy) => (
-                <p key={copy} className="teleprompter-text">
-                  {INTERVIEW_SEGMENTS.map((seg, i) => (
-                    <span key={i} className={`seg seg--${seg.type}`}>
-                      {seg.text}
-                    </span>
-                  ))}
-                </p>
-              ))}
-            </div>
-          </div>
-
-          {/* SVG Arrows */}
-          <svg
-            className="arrows-svg"
-            viewBox="0 0 160 400"
-            xmlns="http://www.w3.org/2000/svg"
-            overflow="visible"
-          >
-            {/* Arrow: filler words → top pill */}
-            <path
-              className="arrow arrow--filler"
-              d="M 0,120 C 70,120 100,128 180,128"
-              stroke="#facc15"
-              strokeWidth="2"
-              fill="none"
-            />
-            {/* Arrow: structure → middle pill */}
-            <path
-              className="arrow arrow--structure"
-              d="M 0,200 C 70,200 100,200 180,200"
-              stroke="#c084fc"
-              strokeWidth="2"
-              fill="none"
-            />
-            {/* Arrow: drift → bottom pill */}
-            <path
-              className="arrow arrow--drift"
-              d="M 0,290 C 70,290 100,272 180,272"
-              stroke="#fb923c"
-              strokeWidth="2"
-              fill="none"
-            />
-          </svg>
-
-          {/* Right: Pills */}
-          <div className="pills-column">
-            <div className="pill pill--filler">Filler words</div>
-            <div className="pill pill--structure">Structure</div>
-            <div className="pill pill--drift">Drifts</div>
-          </div>
-        </div>
-
-        {/* CTA BUTTONS */}
-        <div className="buttons-place">
-          <a
-            className="get-started"
-            href="https://www.withflowstate.app/loginpage"
-          >
-            Get Started
-          </a>
-          <button
-            className="learn-more-btn"
-            onClick={() =>
-              document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })
-            }
-          >
-            View Pricing
-          </button>
+        <div className="product-reel-wrap">
+          <ProductReel
+            uploadPrompt
+            onUpload={() => {
+              window.location.href = "https://www.withflowstate.app/signuppage";
+            }}
+          />
         </div>
       </section>
 
       {/* GRADE SECTION */}
       <div className="grade-card fade-in">
         <div className="grade-left">
-          <p className="badge">CLEAR PROGRESSION</p>
           <h1>
             Actionable Feedback
             <br />
-            <span style={{fontStyle: 'italic', fontWeight: 300}}>Unlimited Practice</span>
+            <span style={{fontStyle: 'italic', fontWeight: 300}}>DAILY Practice</span>
           </h1>
           <p className="subtitle">
             Practice Resume Grill questions and get actionable feedback so you can
@@ -638,49 +438,73 @@ function Landing() {
       <section className="pricing-section fade-in" id="pricing">
         <p className="pricing-subtitle">Choose the plan that works for you</p>
 
-        <div className="pp-grid">
-          <div className={`pp-card pp-card-monthly${activePricingCard === "monthly" ? " pp-card-active" : ""}`}>
-            <div className="pp-card-art" aria-hidden="true" />
-            <div className="pp-card-dim" aria-hidden="true" />
-            <h3 className="pp-price">
-              <span className="pp-price-amount">$9</span>
-              <span className="pp-price-period">/month</span>
-              <span className="pp-price-trial">3 day free trial, CANCEL ANYTIME!</span>
-            </h3>
-            <ul className="pp-features">
-              <li>Unlimited interview practice sessions</li>
-              <li>In depth feedback</li>
-              <li>Unlimited STAR method practice</li>
-              <li>Unlimited Filler Words practice</li>
-              <li>Access to ALL future features</li>
-            </ul>
-          </div>
-
-          <div className={`pp-card pp-card-yearly${activePricingCard === "yearly" ? " pp-card-active" : ""}`}>
-            <span className="pp-badge">75% off</span>
-            <div className="pp-card-art" aria-hidden="true" />
-            <div className="pp-card-dim" aria-hidden="true" />
-            <h3 className="pp-price">
-              <span className="pp-price-was">$108</span>
-              <span className="pp-price-amount">$27</span>
-              <span className="pp-price-period">/year</span>
-              <span className="pp-price-trial">3 day free trial, CANCEL ANYTIME!</span>
-            </h3>
-            <ul className="pp-features">
-              <li>Unlimited interview practice sessions</li>
-              <li>In depth feedback</li>
-              <li>Unlimited STAR method practice</li>
-              <li>Unlimited Filler Words practice</li>
-              <li>Access to ALL future features</li>
-            </ul>
-          </div>
+        <div className="billing-toggle">
+          <button
+            type="button"
+            className={`billing-toggle-btn${billingPeriod === "monthly" ? " active" : ""}`}
+            onClick={() => setBillingPeriod("monthly")}
+          >
+            Monthly
+          </button>
+          <button
+            type="button"
+            className={`billing-toggle-btn${billingPeriod === "yearly" ? " active" : ""}`}
+            onClick={() => setBillingPeriod("yearly")}
+          >
+            Yearly
+            <span className="billing-save-badge">Save 75%</span>
+          </button>
         </div>
 
+        <div className="pp-grid">
+          {billingPeriod === "monthly" ? (
+            <div className="pp-card pp-card-monthly pp-card-active">
+              <div className="pp-card-art" aria-hidden="true" />
+              <div className="pp-card-dim" aria-hidden="true" />
+              <h3 className="pp-price">
+                <span className="pp-price-amount">$9</span>
+                <span className="pp-price-period">/month</span>
+                <span className="pp-price-trial">3 day free trial, CANCEL ANYTIME!</span>
+              </h3>
+              <ul className="pp-features">
+                <li>Unlimited interview practice sessions</li>
+                <li>In depth feedback</li>
+                <li>Unlimited STAR method practice</li>
+                <li>Unlimited Filler Words practice</li>
+                <li>Access to ALL future features</li>
+              </ul>
+            </div>
+          ) : (
+            <div className="pp-card pp-card-yearly pp-card-active">
+              <span className="pp-badge">75% off</span>
+              <div className="pp-card-art" aria-hidden="true" />
+              <div className="pp-card-dim" aria-hidden="true" />
+              <h3 className="pp-price">
+                <span className="pp-price-was">$108</span>
+                <span className="pp-price-amount pp-price-drop" key={billingPeriod}>
+                  ${yearlyPriceDisplay}
+                </span>
+                <span className="pp-price-period">/year</span>
+                <span className="pp-price-trial">3 day free trial, CANCEL ANYTIME!</span>
+              </h3>
+              <ul className="pp-features">
+                <li>Unlimited interview practice sessions</li>
+                <li>In depth feedback</li>
+                <li>Unlimited STAR method practice</li>
+                <li>Unlimited Filler Words practice</li>
+                <li>Access to ALL future features</li>
+              </ul>
+            </div>
+          )}
+        </div>
+
+            <h3 style={{ color: "#fff", marginBottom: "10px" }}>NOT SURE YET??</h3>
         <a
           className="get-started pricing-cta"
           href="https://www.withflowstate.app/loginpage"
         >
-          Get Started
+       
+        Get Started For FREE! CANCEL Anytime!
         </a>
       </section>
 
@@ -690,53 +514,53 @@ function Landing() {
   <h2 className="faq-title">Frequently Asked Questions</h2>
 
   <div className="faq-grid">
-    <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
+    <details className="faq-item">
       <summary>Who is FlowState for?</summary>
       <p>
         Either you are new to interviewing, you feel nervous, you struggle with your public speaking, overwhelmed by the pressure. This is the EXACT thing you need. 
       </p>
     </details>
-    <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
+    <details className="faq-item">
       <summary>What is a Resume grill?</summary>
       <p>
         Resume grill is a form on questioning during interviews where you are asked about your experience on your resume 
       </p>
     </details>
-    <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
+    <details className="faq-item">
       <summary>What is a Curveball?</summary>
       <p>
         Every now and then you might have an interview where the interviewer asks you a question that is a bit far fetched and out of touch to trick you and pressure you on the spot. FlowState's curveball interview is made to help you practice these unexpected questions before your real interview!
       </p>
     </details>
-    <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
+    <details className="faq-item">
       <summary>What is FlowState?</summary>
       <p>
         FlowState is a web application that helps improve your speech for resume grill interviews.
       </p>
     </details>
 
-    <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
+    <details className="faq-item">
       <summary>Is FlowState free to use?</summary>
       <p>
         FlowState is a paid service. With a small team and limited resources, your support directly contributes to improving FlowState for everyone. We appreciate your support!
       </p>
     </details>
 
-    <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
+    <details className="faq-item">
       <summary>What does joining the waitlist do?</summary>
       <p>
         Joining the waitlist shows your support for FlowState and allows us to be able to contact you to inform you about new updates. Joining the waitlist also allows us to see who's interested and gives us a chance to reach out and learn what will make FlowState the best fit for you and all of our users!
       </p>
     </details>
 
-    <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
+    <details className="faq-item">
       <summary>What kind of interviews does FlowState help with?</summary>
       <p>
         FlowState focuses on how to improve you speech during 3 different kinds of interview styles. Modern Interviews, Resume grill interviews, and Curveball Interviews. 
       </p>
     </details>
 
-    <details className="faq-item" onMouseEnter={e => e.currentTarget.setAttribute('open', '')} onMouseLeave={e => e.currentTarget.removeAttribute('open')}>
+    <details className="faq-item">
       <summary>Do I need an interviewer or partner?</summary>
       <p>
         Nope. FlowState acts as your interviewer, so you can practice
@@ -788,7 +612,7 @@ function Landing() {
             })}
           </div>
         </div>
-
+          <h3 style={{ color: "#fff" }}>Let us be apart of your next job offer!</h3>
         <button
           className="get-started testimonial-cta"
           data-tally-open="7R0EE0"
@@ -796,7 +620,7 @@ function Landing() {
           data-tally-width="400"
           data-tally-overlay="1"
         >
-          Add a Testimonial to be Featured
+          Get Started for FREE
         </button>
       </section>
 

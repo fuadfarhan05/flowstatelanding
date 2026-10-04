@@ -1,0 +1,23 @@
+:root{
+  /* Fast and unfussy. Nothing in FlowState animates longer than .35s
+     except ambient loops (ring pulse, flame, equalizer bars). */
+  --dur-instant:.12s; /* @kind other */
+  --dur-fast:.15s; /* @kind other */
+  --dur-base:.2s; /* @kind other */
+  --dur-slow:.35s; /* @kind other */
+  --dur-ambient:2.4s; /* @kind other */
+
+  --ease-out:ease; /* @kind other */
+  --ease-smooth:cubic-bezier(.16,1,.3,1); /* @kind other */
+  --ease-pop:cubic-bezier(.34,1.56,.64,1); /* @kind other */
+  --ease-rise:cubic-bezier(.22,1,.36,1); /* @kind other */
+
+  /* Canonical transitions */
+  --tr-nav:background var(--dur-fast) ease,color var(--dur-fast) ease,box-shadow var(--dur-fast) ease; /* @kind other */
+  --tr-lift:transform var(--dur-fast) ease,box-shadow var(--dur-fast) ease; /* @kind other */
+
+  /* Press + hover deltas */
+  --lift-hover:-1px; /* @kind other */
+  --lift-hover-lg:-2px; /* @kind other */
+  --press-scale:.98; /* @kind other */
+}

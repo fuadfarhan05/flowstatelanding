@@ -1,0 +1,45 @@
+:root{
+  /* One family, weight does all the work. */
+  --font-core:"Raleway",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+  /* Weights — FlowState leans heavy: 700/800 for anything that matters. */
+  --fw-regular:400; /* @kind other */
+  --fw-medium:500; /* @kind other */
+  --fw-semibold:600; /* @kind other */
+  --fw-bold:700; /* @kind other */
+  --fw-extrabold:800; /* @kind other */
+  --fw-black:900; /* @kind other */
+
+  /* Sizes, lifted from the product (not snapped to a scale). */
+  --fs-10:10px;   /* bottom-nav label */
+  --fs-11:11px;
+  --fs-12:12px;   /* eyebrow, date, stat label */
+  --fs-13:13px;   /* body-small, invite sub */
+  --fs-14:14px;   /* button label, body */
+  --fs-15:15px;   /* sidebar nav item, CTA */
+  --fs-16:16px;
+  --fs-18:18px;   /* section title */
+  --fs-19:19px;   /* sidebar wordmark, modal title */
+  --fs-20:20px;
+  --fs-22:22px;   /* card heading */
+  --fs-26:26px;
+  --fs-32:32px;   /* stat number */
+  --fs-38:38px;   /* page title max */
+
+  /* Fluid headings, as used in the product */
+  --fs-title-page:clamp(26px,4vw,38px); /* @kind font */
+  --fs-title-hero:clamp(24px,3.2vw,34px); /* @kind font */
+  --fs-title-section:clamp(20px,2vw,26px); /* @kind font */
+  --fs-tagline:clamp(22px,3vw,30px); /* @kind font */
+
+  --lh-tight:1.1; /* @kind other */
+  --lh-snug:1.35; /* @kind other */
+  --lh-body:1.5; /* @kind other */
+  --lh-loose:1.6; /* @kind other */
+
+  --ls-tight:-.02em; /* @kind other */
+  --ls-normal:0; /* @kind other */
+  --ls-wide:.04em; /* @kind other */
+  --ls-eyebrow:.18em; /* @kind other */
+  --ls-label:.05em; /* @kind other */
+}

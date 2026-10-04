@@ -1,0 +1,102 @@
+:root{
+  /* ── Shell black: the page itself. The navy content card floats on it. ── */
+  --fs-black:#000000;
+  --fs-black-raised:#0a0b10;
+
+  /* ── Core navy ramp — every FlowState surface sits on this ── */
+  --fs-navy-1000:#050914; /* deepest: auth page ground */
+  --fs-navy-950:#080f26;  /* grid-pattern panel ground */
+  --fs-navy-900:#0b132d;  /* canonical app background */
+  --fs-navy-850:#0c142c;  /* dashboard page background */
+  --fs-navy-800:#10183a;  /* sidebar panel (legacy) */
+  --fs-navy-820:#161d33;  /* content card on black */
+  --fs-navy-780:#1b2559;  /* hero card fill */
+  --fs-navy-770:#1e2a5a;  /* sidebar active fill */
+  --fs-navy-750:#121f45;  /* raised card on navy */
+  --fs-navy-700:#152248;
+  --fs-navy-600:#1c2f5e;
+  --fs-navy-500:#26416f;
+  --fs-navy-450:#465185;  /* sidebar active nav fill */
+
+  /* ── Brand blue ── */
+  --fs-blue-700:#276fff;
+  --fs-blue-600:#2f6bff;  /* --accent in product */
+  --fs-blue-500:#4d6bf5;  /* primary CTA fill */
+  --fs-blue-450:#4d82ff;
+  --fs-blue-400:#5b8fff;
+  --fs-blue-300:#75a8ff;  /* logo glow / selected states */
+  --fs-blue-200:#7a94f7;  /* primary CTA hover */
+  --fs-blue-150:#93a8ff;  /* text links on navy */
+  --fs-blue-100:#c7cdf7;
+  --fs-blue-050:#dce6f9;
+
+  /* ── Ink ── */
+  --fs-white:#ffffff;
+  --fs-ink-050:#f7f9ff;   /* primary text on navy */
+  --fs-ink-100:#f0f0ff;
+  --fs-ink-200:#cfd6f0;   /* sidebar nav label */
+  --fs-ink-300:#b6bfd9;   /* secondary text on navy */
+  --fs-ink-400:#9aa4c7;   /* muted / inactive */
+  --fs-ink-900:#10163a;   /* text on light cards */
+  --fs-ink-700:#33459e;   /* name accent on light cards */
+  --fs-ink-600:#5c6070;   /* secondary text on light cards */
+
+  /* ── Warm neutral (the one light-card family: progress / stats) ── */
+  --fs-sand-100:#e7e4de;
+  --fs-sand-200:#ded8ce;
+
+  /* ── Semantic ── */
+  --fs-teal:#1ec8b1;      /* --accent-alt: eyebrows, positive trend */
+  --fs-mint:#48c78e;
+  --fs-mint-soft:#74f6d7;
+  --fs-danger:#ff4d5e;    /* log out */
+  --fs-danger-soft:#ff8a94;
+  --fs-danger-hover:#ff7581;
+  --fs-gold:#ffe066;      /* "Exclusive" / premium */
+  --fs-amber:#ffb45c;     /* badge unlock */
+  --fs-flame:#ff9d4d;     /* streak fire */
+
+  /* ── Grade scale (score badges: <65 red, <75 yellow, <90 green, 90+ blue) ── */
+  --fs-grade-red:220,60,60; /* @kind color */
+  --fs-grade-yellow:220,170,30; /* @kind color */
+  --fs-grade-green:80,200,140; /* @kind color */
+  --fs-grade-blue:80,140,255; /* @kind color */
+
+  /* ── Hairlines on navy ── */
+  --fs-line-soft:rgba(255,255,255,.10);
+  --fs-line:rgba(255,255,255,.12);
+  --fs-line-strong:rgba(255,255,255,.22);
+  --fs-line-blue:rgba(38,65,111,1);
+
+  /* ── Semantic aliases — prefer these in product code ── */
+  --bg-app:var(--fs-navy-900);
+  --bg-shell:var(--fs-black);
+  --bg-app-deep:var(--fs-navy-1000);
+  --surface-content:var(--fs-navy-820);
+  --surface-hero:var(--fs-navy-780);
+  --surface-sidebar:var(--fs-navy-800);
+  --surface-panel:rgba(17,28,58,.72);
+  --surface-card:var(--fs-navy-750);
+  --surface-card-light:var(--fs-white);
+  --surface-stat:var(--fs-sand-100);
+  --surface-glass:rgba(255,255,255,.05);
+  --surface-glass-strong:rgba(255,255,255,.15);
+  --surface-raise:rgba(255,255,255,.04);
+  --surface-raise-hover:rgba(255,255,255,.07);
+
+  --text-body:var(--fs-ink-050);
+  --text-muted:var(--fs-ink-300);
+  --text-nav:var(--fs-ink-200);
+  --text-inactive:var(--fs-ink-400);
+  --text-on-light:var(--fs-ink-900);
+  --text-on-light-muted:var(--fs-ink-600);
+  --text-link:var(--fs-blue-150);
+
+  --accent:var(--fs-blue-600);
+  --accent-cta:var(--fs-blue-500);
+  --accent-cta-hover:var(--fs-blue-200);
+  --accent-alt:var(--fs-teal);
+
+  --border-hairline:var(--fs-line);
+  --border-top-highlight:var(--fs-line-strong);
+}

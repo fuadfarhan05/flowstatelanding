@@ -1,0 +1,10 @@
+/* ProductReel design tokens. Font is intentionally NOT imported here —
+   Raleway is already loaded globally via a <link> in public/index.html,
+   so re-importing it here would reintroduce a render-blocking @import. */
+@import url("./tokens/colors.css");
+@import url("./tokens/typography.css");
+@import url("./tokens/spacing.css");
+@import url("./tokens/radius.css");
+@import url("./tokens/shadows.css");
+@import url("./tokens/motion.css");
+@import url("./tokens/surfaces.css");

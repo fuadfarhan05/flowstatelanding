@@ -1,0 +1,32 @@
+:root{
+  /* FlowState's real rhythm is a 2px-resolution set, not a strict 4/8 grid.
+     These are the literal values used across the product. */
+  --sp-2:2px;
+  --sp-4:4px;
+  --sp-6:6px;
+  --sp-8:8px;
+  --sp-10:10px;
+  --sp-12:12px;
+  --sp-14:14px;   /* nav item padding-x, card padding-x */
+  --sp-16:16px;
+  --sp-18:18px;   /* sidebar inset from viewport */
+  --sp-20:20px;
+  --sp-22:22px;
+  --sp-24:24px;
+  --sp-26:26px;
+  --sp-28:28px;
+  --sp-30:30px;
+  --sp-32:32px;   /* hero card padding */
+  --sp-36:36px;
+  --sp-40:40px;
+  --sp-48:48px;
+
+  /* Layout constants */
+  --sidebar-width:240px;
+  --sidebar-inset:18px;
+  --shell-max:1180px;
+  --panel-max:860px;
+  --form-max:420px;
+  --grid-cell:36px; /* @kind spacing */
+  --grid-cell-auth:40px; /* @kind spacing */
+}
