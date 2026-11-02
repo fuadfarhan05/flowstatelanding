@@ -1,0 +1,86 @@
+.why-it-works-page {
+  position: relative;
+  min-height: 100vh;
+  background-color: #000;
+  color: #fff;
+  font-family: "Raleway", sans-serif;
+  padding: 100px 24px 80px;
+  box-sizing: border-box;
+}
+
+.why-it-works-title {
+  text-align: center;
+  font-size: clamp(32px, 5vw, 52px);
+  margin: 0 auto 80px;
+}
+
+.why-it-works-back {
+  position: absolute;
+  top: 28px;
+  left: 28px;
+  color: #b8c2ff;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.why-it-works-back:hover {
+  color: #fff;
+}
+
+.why-it-works-row {
+  display: flex;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto 64px;
+}
+
+.why-it-works-row--left {
+  justify-content: flex-start;
+}
+
+.why-it-works-row--right {
+  justify-content: flex-end;
+}
+
+.why-it-works-block {
+  max-width: 480px;
+  text-align: left;
+}
+
+.why-it-works-block h2 {
+  font-size: clamp(22px, 3vw, 30px);
+  margin: 0 0 16px;
+  color: #fff;
+}
+
+.why-it-works-list {
+  list-style: disc outside;
+  margin: 0;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.why-it-works-list li {
+  color: #b5b5b5;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.why-it-works-list li::marker {
+  color: #6d86ff;
+}
+
+@media (max-width: 700px) {
+  .why-it-works-row,
+  .why-it-works-row--left,
+  .why-it-works-row--right {
+    justify-content: center;
+  }
+
+  .why-it-works-block {
+    text-align: center;
+  }
+}

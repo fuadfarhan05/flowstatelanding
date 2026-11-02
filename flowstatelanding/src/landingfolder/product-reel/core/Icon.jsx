@@ -1,9 +1,17 @@
 import React from "react";
-import { MousePointer2, FileUp, FileCheck2 } from "lucide-react";
+import {
+  MousePointer2,
+  FileUp,
+  FileCheck2,
+  MessageSquareDashed,
+  Star,
+  ArrowRight,
+  Plus,
+} from "lucide-react";
 
 // FlowState's icon primitive, backed by lucide-react.
 //
-// Only the icons the ported ProductReel package actually uses are imported
+// Only the icons the ported FlowState components actually use are imported
 // by name below — a wildcard `import * as LucideIcons` pulls the entire
 // icon set into the bundle and defeats tree-shaking. Add new icons here by
 // name as they're needed, rather than switching back to a namespace import.
@@ -16,6 +24,10 @@ const ICONS = {
   "mouse-pointer-2": MousePointer2,
   "file-up": FileUp,
   "file-check-2": FileCheck2,
+  "message-square-dashed": MessageSquareDashed,
+  star: Star,
+  "arrow-right": ArrowRight,
+  plus: Plus,
 };
 
 export function Icon({ name, size = "1em", strokeWidth = 2, filled = false, label, style, ...rest }) {
