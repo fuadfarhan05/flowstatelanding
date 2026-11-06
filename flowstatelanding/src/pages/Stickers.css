@@ -1,0 +1,1146 @@
+/* The global overflow-x:hidden makes body and #root scroll containers, which
+   stops the laptop column from sticking. clip hides overflow without that. */
+body:has(.stk-page),
+#root:has(.stk-page) {
+  overflow-x: clip;
+}
+
+.stk-page {
+  --stk-gold: #ffe066;
+  --stk-gold-light: #ffefad;
+  --stk-text: #f2f2ee;
+  --stk-muted: #a9abae;
+  --stk-faint: #8e9093;
+  --stk-error: #ff7a7a;
+  --stk-card: #0b132d;
+  --stk-gold-fill: linear-gradient(180deg, #ffe88a 0%, #f5c843 55%, #dda92a 100%);
+  --stk-gold-depth: inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -2px 0 rgba(110, 70, 0, 0.3), 0 10px 28px -8px rgba(245, 200, 67, 0.5);
+
+  min-height: 100vh;
+  background: radial-gradient(70% 50% at 20% 0%, rgba(255, 224, 102, 0.07), transparent 70%),
+    #000;
+  color: var(--stk-text);
+  font-family: "Raleway", sans-serif;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+}
+
+.stk-page *,
+.stk-page *::before,
+.stk-page *::after {
+  box-sizing: border-box;
+}
+
+.stk-page ::selection {
+  background: var(--stk-gold);
+  color: #000;
+}
+
+/* Header */
+.stk-header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px clamp(16px, 3vw, 32px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.stk-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--stk-text);
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.stk-brand img {
+  height: 20px;
+  width: auto;
+}
+
+.stk-drop-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px 6px 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 224, 102, 0.4);
+  background: linear-gradient(180deg, rgba(255, 224, 102, 0.16), rgba(255, 224, 102, 0.04));
+  box-shadow: inset 0 1px 0 rgba(255, 236, 160, 0.3), 0 8px 24px -10px rgba(245, 200, 67, 0.4);
+  color: var(--stk-gold-light);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.stk-free-tag {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--stk-gold-fill);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), inset 0 -2px 0 rgba(110, 70, 0, 0.3);
+  color: #000;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* Layout */
+.stk-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(16px, 3vw, 40px) clamp(16px, 3vw, 32px) 72px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
+  gap: clamp(32px, 4vw, 56px);
+  align-items: start;
+}
+
+.stk-showcase {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Only stick once the columns are side by side. Stacked, it would cover the form. */
+@media (min-width: 1000px) {
+  .stk-showcase {
+    position: sticky;
+    top: 24px;
+  }
+}
+
+.stk-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.stk-eyebrow {
+  color: var(--stk-gold);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.stk-intro h1 {
+  margin: 0;
+  font-size: clamp(38px, 5vw, 64px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.stk-intro h1 span {
+  color: var(--stk-gold);
+}
+
+.stk-intro p {
+  margin: 0;
+  max-width: 480px;
+  color: var(--stk-muted);
+  font-size: 17px;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.stk-drag-hint {
+  align-self: center;
+  color: var(--stk-faint);
+  font-size: 13px;
+}
+
+/* 3D laptop */
+.stk-stage {
+  position: relative;
+  height: clamp(320px, 38vw, 420px);
+  perspective: 1300px;
+  perspective-origin: 50% 40%;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.stk-stage:active {
+  cursor: grabbing;
+}
+
+.stk-floor-glow {
+  position: absolute;
+  left: 50%;
+  top: 78%;
+  width: 460px;
+  max-width: 100%;
+  height: 120px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 224, 102, 0.16), transparent);
+  pointer-events: none;
+}
+
+.stk-rig {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  transform: scale(1) rotateX(-16deg) rotateY(200deg);
+}
+
+.stk-base-top,
+.stk-base-bottom,
+.stk-wall,
+.stk-lid-front,
+.stk-lid-back,
+.stk-lid-edge {
+  position: absolute;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.stk-base-top,
+.stk-base-bottom {
+  left: -160px;
+  top: -110px;
+  width: 320px;
+  height: 220px;
+  border-radius: 12px;
+}
+
+.stk-base-top {
+  transform: translateY(70px) rotateX(90deg);
+  background: linear-gradient(180deg, #3a3e46, #2a2d33);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.stk-base-bottom {
+  transform: translateY(80px) rotateX(-90deg);
+  background: #17191d;
+}
+
+.stk-keyboard {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  top: 20px;
+  height: 108px;
+  border-radius: 6px;
+  background-color: #111317;
+  background-image: linear-gradient(90deg, transparent 21px, #2a2d33 21px, #2a2d33 23px),
+    linear-gradient(0deg, transparent 19px, #2a2d33 19px, #2a2d33 21px);
+  background-size: 23px 21px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+.stk-trackpad {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  width: 112px;
+  height: 70px;
+  margin-left: -56px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #33373e, #2c2f35);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+}
+
+.stk-wall {
+  top: -5px;
+  height: 10px;
+}
+
+.stk-wall--front {
+  left: -160px;
+  width: 320px;
+  transform: translateY(75px) translateZ(110px);
+  background: linear-gradient(180deg, #4a4e57, #25272c);
+  border-radius: 0 0 6px 6px;
+}
+
+.stk-wall--back {
+  left: -160px;
+  width: 320px;
+  transform: translateY(75px) translateZ(-110px) rotateY(180deg);
+  background: #24262b;
+}
+
+.stk-wall--left,
+.stk-wall--right {
+  left: -110px;
+  width: 220px;
+  background: #2c2e34;
+}
+
+.stk-wall--left {
+  transform: translateX(-160px) translateY(75px) rotateY(-90deg);
+}
+
+.stk-wall--right {
+  transform: translateX(160px) translateY(75px) rotateY(90deg);
+}
+
+.stk-lid {
+  position: absolute;
+  left: -160px;
+  top: -105px;
+  width: 320px;
+  height: 210px;
+  transform-style: preserve-3d;
+  transform-origin: 50% 100%;
+  transform: translateY(-35px) translateZ(-110px) rotateX(14deg);
+}
+
+.stk-lid-front,
+.stk-lid-back {
+  inset: 0;
+  border-radius: 12px;
+}
+
+.stk-lid-front {
+  transform: translateZ(4px);
+  padding: 10px 10px 14px;
+  background: #0a0b0d;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.stk-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: radial-gradient(90% 70% at 50% 100%, rgba(77, 107, 245, 0.35), transparent 70%),
+    var(--stk-card);
+}
+
+.stk-screen-brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.stk-screen-brand img {
+  height: 16px;
+  width: auto;
+}
+
+.stk-screen-tag {
+  color: var(--stk-gold);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+.stk-lid-back {
+  transform: translateZ(-4px) rotateY(180deg);
+  overflow: hidden;
+  background: linear-gradient(160deg, #4a4e57 0%, #33363d 45%, #26282d 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.stk-lid-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.28);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.stk-lid-sticker {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  transition: transform 0.45s cubic-bezier(0.16, 1.4, 0.3, 1), opacity 0.25s ease;
+}
+
+.stk-lid-sticker img,
+.stk-sticker-image img,
+.stk-modal-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.08);
+}
+
+.stk-lid-edge--top {
+  left: 0;
+  top: -4px;
+  width: 320px;
+  height: 8px;
+  transform: rotateX(90deg);
+  background: #3a3d44;
+  border-radius: 4px;
+}
+
+.stk-lid-edge--left,
+.stk-lid-edge--right {
+  top: 0;
+  width: 8px;
+  height: 210px;
+  background: #2f3238;
+}
+
+.stk-lid-edge--left {
+  left: -4px;
+  transform: rotateY(-90deg);
+}
+
+.stk-lid-edge--right {
+  left: 316px;
+  transform: rotateY(90deg);
+}
+
+/* Form card */
+.stk-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: clamp(22px, 3vw, 36px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--stk-card);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 30px 80px -30px rgba(0, 0, 0, 0.9);
+  scroll-margin-top: 16px;
+}
+
+.stk-form {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.stk-form--tight {
+  gap: 22px;
+}
+
+.stk-form-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stk-card h2 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.stk-required,
+.stk-help,
+.stk-picker-help {
+  color: var(--stk-faint);
+  font-size: 13px;
+}
+
+.stk-star {
+  color: var(--stk-gold);
+}
+
+.stk-step-eyebrow {
+  color: var(--stk-gold);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.stk-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stk-label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.stk-help {
+  margin-top: -4px;
+}
+
+.stk-field input {
+  height: 52px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--stk-text);
+  font: inherit;
+  font-size: 16px;
+  outline: none;
+}
+
+.stk-field input::placeholder {
+  color: #6b6d70;
+}
+
+.stk-field input:focus {
+  border-color: var(--stk-gold);
+  box-shadow: 0 0 0 3px rgba(255, 224, 102, 0.15);
+}
+
+.stk-field input.has-error {
+  border-color: rgba(255, 122, 122, 0.7);
+}
+
+.stk-error {
+  color: var(--stk-error);
+  font-size: 13px;
+}
+
+/* Sticker picker */
+.stk-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stk-picker-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stk-picker-help {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.stk-limit-pill {
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 224, 102, 0.4);
+  background: linear-gradient(180deg, rgba(255, 224, 102, 0.16), rgba(255, 224, 102, 0.04));
+  box-shadow: inset 0 1px 0 rgba(255, 236, 160, 0.3);
+  color: var(--stk-gold-light);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.stk-sticker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  gap: 10px;
+}
+
+.stk-sticker-cell {
+  position: relative;
+  display: flex;
+}
+
+.stk-view-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  height: 24px;
+  padding: 0 9px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.55);
+  color: #d6d7d9;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.stk-view-btn:hover {
+  border-color: rgba(255, 224, 102, 0.6);
+  color: var(--stk-gold);
+}
+
+.stk-sticker-card {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 14px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  color: var(--stk-text);
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stk-sticker-card.is-on {
+  border-color: rgba(255, 224, 102, 0.75);
+  background: radial-gradient(120% 70% at 50% 0%, rgba(255, 224, 102, 0.16), transparent 65%),
+    #0d0c08;
+  box-shadow: inset 0 1px 0 rgba(255, 236, 160, 0.4), 0 18px 40px -20px rgba(245, 200, 67, 0.55);
+}
+
+.stk-sticker-card:disabled {
+  cursor: not-allowed;
+}
+
+.stk-sticker-card:disabled .stk-sticker-image,
+.stk-sticker-card:disabled .stk-sticker-copy {
+  opacity: 0.4;
+}
+
+.stk-sticker-card:disabled .stk-sticker-count {
+  color: var(--stk-faint);
+}
+
+.stk-check {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #000;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.stk-sticker-card.is-on .stk-check {
+  border-color: rgba(255, 224, 102, 0.9);
+  background: linear-gradient(180deg, #ffe88a, #dda92a);
+}
+
+.stk-sticker-image {
+  width: 96px;
+  height: 96px;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stk-sticker-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stk-sticker-name {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.stk-sticker-desc {
+  color: var(--stk-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.stk-sticker-count {
+  color: var(--stk-gold);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+/* Buttons */
+.stk-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stk-white-btn {
+  height: 56px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #ffffff 0%, #ececE8 100%);
+  box-shadow: inset 0 1px 0 #fff, inset 0 -2px 0 rgba(0, 0, 0, 0.12),
+    0 10px 28px -10px rgba(255, 255, 255, 0.35);
+  color: #000;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.stk-white-btn:hover:not(:disabled) {
+  background: linear-gradient(180deg, #ffffff 0%, #fff6d6 100%);
+}
+
+.stk-white-btn:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.stk-clear-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.stk-text-btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--stk-faint);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.stk-text-btn:hover:not(:disabled) {
+  color: var(--stk-text);
+}
+
+.stk-back-btn {
+  align-self: flex-start;
+}
+
+.stk-page button:focus-visible,
+.stk-page a:focus-visible {
+  outline: 2px solid var(--stk-gold);
+  outline-offset: 2px;
+}
+
+/* Step 2 */
+.stk-video {
+  position: relative;
+  align-self: center;
+  /* The height limit keeps the whole video on screen on short or sideways phones. */
+  width: min(100%, 340px, 85vh * 9 / 16);
+  aspect-ratio: 9 / 16;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 224, 102, 0.4);
+  background: radial-gradient(90% 60% at 50% 0%, rgba(255, 224, 102, 0.12), transparent 65%),
+    linear-gradient(180deg, #0f1530, #05070f);
+  box-shadow: inset 0 1px 0 rgba(255, 236, 160, 0.35), 0 30px 80px -30px rgba(245, 200, 67, 0.4),
+    0 20px 40px -20px rgba(0, 0, 0, 0.9);
+  text-align: center;
+}
+
+.stk-video video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.stk-friend-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 224, 102, 0.22);
+  background: linear-gradient(180deg, rgba(255, 224, 102, 0.07), rgba(255, 224, 102, 0.02));
+}
+
+.stk-friend-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stk-friend-panel .stk-help {
+  color: var(--stk-muted);
+  line-height: 1.5;
+}
+
+.stk-friend-panel input {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.stk-sublabel {
+  color: #d6d7d9;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.stk-or {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--stk-faint);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.stk-or::before,
+.stk-or::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.stk-share-text {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.4);
+  color: #d6d7d9;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.stk-share-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.stk-outline-btn {
+  flex: 1 1 140px;
+  min-height: 46px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 224, 102, 0.6);
+  background: rgba(255, 224, 102, 0.08);
+  color: var(--stk-gold);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.stk-outline-btn:hover {
+  background: rgba(255, 224, 102, 0.16);
+}
+
+.stk-share-status {
+  color: var(--stk-gold-light);
+  font-size: 13px;
+}
+
+.stk-share-status:empty {
+  display: none;
+}
+
+/* Step 3 */
+.stk-done {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 8px 0;
+}
+
+.stk-done-tile {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: var(--stk-gold-fill);
+  box-shadow: var(--stk-gold-depth);
+  color: #000;
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.stk-done-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stk-card .stk-done-copy h2 {
+  font-size: clamp(28px, 3vw, 36px);
+  letter-spacing: -0.025em;
+}
+
+.stk-done-copy p {
+  margin: 0;
+  color: var(--stk-muted);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.stk-done-copy strong {
+  color: var(--stk-text);
+  font-weight: 700;
+}
+
+.stk-gold-btn {
+  align-self: flex-start;
+  padding: 14px 22px;
+  border-radius: 14px;
+  background: var(--stk-gold-fill);
+  box-shadow: var(--stk-gold-depth);
+  color: #000;
+  font-size: 15px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.stk-gold-btn:hover {
+  background: linear-gradient(180deg, #fff0b0 0%, #ffd95c 55%, #e8b637 100%);
+}
+
+/* Sticker preview */
+.stk-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  /* Stops the page behind the preview from scrolling on touch screens. */
+  touch-action: none;
+}
+
+.stk-modal {
+  width: 100%;
+  max-width: 460px;
+  max-height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  padding: clamp(22px, 4vw, 36px);
+  border-radius: 28px;
+  border: 1px solid rgba(255, 224, 102, 0.35);
+  background: radial-gradient(120% 70% at 50% 0%, rgba(255, 224, 102, 0.12), transparent 60%),
+    var(--stk-card);
+  box-shadow: inset 0 1px 0 rgba(255, 236, 160, 0.3), 0 40px 100px -20px rgba(0, 0, 0, 0.9);
+  text-align: center;
+}
+
+.stk-modal-top {
+  align-self: stretch;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stk-modal-position {
+  color: var(--stk-gold);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.stk-icon-btn {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: transparent;
+  color: var(--stk-text);
+  font: inherit;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.stk-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.stk-icon-btn--close {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 16px;
+}
+
+.stk-modal-image {
+  width: min(320px, 70vw, 42vh);
+  aspect-ratio: 1;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.9), inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+}
+
+.stk-modal-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stk-modal-name {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.stk-modal-desc {
+  color: var(--stk-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.stk-modal-actions {
+  align-self: stretch;
+  display: flex;
+  gap: 10px;
+}
+
+.stk-modal-toggle {
+  flex: 1;
+  height: 52px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--stk-gold-fill);
+  box-shadow: var(--stk-gold-depth);
+  color: #000;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.stk-modal-toggle:disabled {
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: none;
+  color: var(--stk-faint);
+  cursor: not-allowed;
+}
+
+.stk-modal-toggle.is-on {
+  border: 1px solid rgba(255, 224, 102, 0.6);
+  background: rgba(255, 224, 102, 0.08);
+  box-shadow: none;
+  color: var(--stk-gold);
+}
+
+/* Phones */
+@media (max-width: 520px) {
+  .stk-header {
+    flex-wrap: wrap;
+  }
+
+  .stk-stage {
+    height: 270px;
+  }
+
+  /* Each sticker becomes a short row, so the form isn't three screens long. */
+  .stk-sticker-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stk-sticker-card {
+    display: grid;
+    grid-template-columns: 76px 1fr;
+    grid-template-rows: 1fr auto;
+    column-gap: 14px;
+    row-gap: 8px;
+    align-items: center;
+    padding: 12px 14px;
+    text-align: left;
+  }
+
+  .stk-sticker-image {
+    grid-column: 1;
+    grid-row: 1;
+    width: 76px;
+    height: 76px;
+  }
+
+  .stk-sticker-copy {
+    grid-column: 2;
+    grid-row: 1;
+    padding-right: 30px;
+  }
+
+  .stk-sticker-count {
+    grid-column: 2;
+    grid-row: 2;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Sits under the sticker image, in the empty cell left of the count. */
+  .stk-view-btn {
+    top: auto;
+    bottom: 12px;
+    left: 14px;
+    width: 76px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .stk-modal-toggle {
+    font-size: 14px;
+  }
+}
+
+/* Touch screens of any width, including sideways phones and tablets */
+@media (pointer: coarse), (max-width: 520px) {
+  .stk-view-btn {
+    height: 40px;
+    font-size: 12px;
+  }
+
+  .stk-text-btn {
+    min-height: 44px;
+    padding: 0 8px;
+    margin: -6px -8px;
+  }
+
+  .stk-icon-btn--close {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Wider touch screens keep the stacked card, so make room for the larger View button. */
+@media (pointer: coarse) and (min-width: 521px) {
+  .stk-view-btn {
+    padding: 0 12px;
+  }
+
+  .stk-sticker-card {
+    padding-top: 58px;
+  }
+}
